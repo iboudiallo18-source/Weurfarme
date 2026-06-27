@@ -1,0 +1,6 @@
+# ⚠️ Fichiers secrets - ne jamais envoyer sur GitHub
+config.js
+
+# Fichiers système
+.DS_Store
+Thumbs.db
