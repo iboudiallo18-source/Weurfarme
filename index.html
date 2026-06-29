@@ -198,6 +198,221 @@
   </section>
 
   <footer>
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeurFarme – Le savoir agricole dans ta main</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="assistant.css" />
+  <script src="agriculture-knowledge.js"></script>
+  <script src="assistant.js"></script>
+</head>
+
+<body class="page-accueil">
+
+  <header class="sticky">
+    <a href="index.html" class="logo" aria-label="WeurFarme – accueil">
+      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="19" cy="19" r="19" fill="rgba(255,255,255,0.12)"/>
+        <path d="M19 30 C19 30 9 22 9 15 C9 10.03 13.48 6 19 6 C24.52 6 29 10.03 29 15 C29 22 19 30 19 30Z" fill="#81C784"/>
+        <path d="M19 30 L19 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M19 20 C19 20 14 17 13 13" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M19 24 C19 24 23 21 24 17" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-texte">
+        <span>Weur</span><span>Farme</span>
+      </div>
+    </a>
+    <nav class="nav-groupe" aria-label="Navigation principale">
+      <a href="#assistant" class="nav-lien bordure">Assistant</a>
+      <a href="inscription.html" class="nav-lien bordure">Connexion</a>
+    </nav>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-titre">
+    <div class="hero-badge">🌱 Agriculture · Sénégal</div>
+
+    <h1 id="hero-titre">
+      Le savoir agricole<br />
+      <em>dans ta main</em>
+    </h1>
+
+    <p class="hero-desc">
+      Accède aux meilleures fiches techniques sur tes cultures, protège-les des maladies
+      et trouve les bons fournisseurs de matériel — partout au Sénégal.
+    </p>
+
+    <div class="hero-prix" aria-label="Tarif : 1 000 FCFA par an">
+      <span class="montant">1 000 FCFA</span>
+      <span class="detail">/ an seulement</span>
+    </div>
+
+    <br />
+
+    <a href="inscription.html" class="btn-principal" id="btn-hero">
+      S'inscrire maintenant →
+    </a>
+
+    <svg class="hero-scene" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+      <rect x="0" y="110" width="520" height="50" fill="#1B5E20" rx="0"/>
+      <circle cx="460" cy="60" r="28" fill="rgba(249,168,37,0.25)"/>
+      <circle cx="460" cy="60" r="18" fill="rgba(249,168,37,0.50)"/>
+      <g fill="#4CAF50">
+        <rect x="48" y="75" width="4" height="36" rx="2"/>
+        <ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(-15 50 68)"/>
+        <ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(15 50 68)"/>
+        <rect x="118" y="65" width="4" height="46" rx="2"/>
+        <ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(-10 120 56)"/>
+        <ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(10 120 56)"/>
+        <rect x="190" y="78" width="4" height="33" rx="2"/>
+        <ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(-20 192 71)"/>
+        <ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(20 192 71)"/>
+        <rect x="258" y="60" width="4" height="51" rx="2"/>
+        <ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(-8 260 50)"/>
+        <ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(8 260 50)"/>
+        <rect x="328" y="72" width="4" height="39" rx="2"/>
+        <ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(-12 330 64)"/>
+        <ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(12 330 64)"/>
+        <rect x="395" y="80" width="4" height="31" rx="2"/>
+        <ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(-18 397 73)"/>
+        <ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(18 397 73)"/>
+      </g>
+      <rect x="0" y="108" width="520" height="4" fill="#388E3C" rx="2"/>
+    </svg>
+  </section>
+
+  <section class="avantages" aria-labelledby="avantages-titre">
+    <p class="section-label">Pourquoi WeurFarme ?</p>
+    <h2 class="section-titre" id="avantages-titre">
+      Tout ce dont tu as besoin<br />pour mieux produire
+    </h2>
+
+    <div class="cartes">
+      <div class="carte">
+        <div class="carte-icone" aria-hidden="true">📋</div>
+        <div class="carte-corps">
+          <h3>Fiches techniques claires</h3>
+          <p>
+            Des guides simples sur l'arachide, le mil, le maïs, le gombo et bien plus.
+            Écrits pour être compris sans être expert.
+          </p>
+        </div>
+      </div>
+
+      <div class="carte">
+        <div class="carte-icone" aria-hidden="true">🦠</div>
+        <div class="carte-corps">
+          <h3>Maladies &amp; protection</h3>
+          <p>
+            Identifie les maladies et nuisibles sur tes champs. Agis vite pour
+            protéger ta récolte avant qu'il ne soit trop tard.
+          </p>
+        </div>
+      </div>
+
+      <div class="carte">
+        <div class="carte-icone" aria-hidden="true">🤝</div>
+        <div class="carte-corps">
+          <h3>Fournisseurs de confiance</h3>
+          <p>
+            Trouve facilement des vendeurs de semences, d'engrais et de matériel
+            agricole proches de chez toi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Assistant agricole (visiteurs) -->
+  <section class="section-assistant" id="assistant" aria-labelledby="assistant-titre">
+    <p class="section-label">Assistant gratuit</p>
+    <h2 class="section-titre" id="assistant-titre">
+      Posez votre question<br />à notre expert agricole
+    </h2>
+
+    <div class="assistant-wrap">
+      <div class="assistant-section" aria-label="Assistant agricole WeurFarme">
+        <div class="assistant-entete">
+          <div class="assistant-avatar" aria-hidden="true">🌾</div>
+          <div class="assistant-entete-texte">
+            <h2>Assistant agricole WeurFarme</h2>
+            <p>Réponses professionnelles sur l'agriculture au Sénégal — accès libre, sans inscription.</p>
+          </div>
+          <span class="assistant-statut" id="assistant-statut">En ligne</span>
+        </div>
+
+        <div class="assistant-erreur" id="assistant-erreur" role="alert"></div>
+
+        <div class="assistant-messages" id="assistant-messages" aria-live="polite"></div>
+
+        <div class="assistant-suggestions" id="assistant-suggestions"></div>
+
+        <form class="assistant-form" id="assistant-form">
+          <textarea
+            id="assistant-input"
+            placeholder="Ex : Quand semer l'arachide au Sénégal ?"
+            rows="2"
+            aria-label="Votre question agricole"
+          ></textarea>
+          <button type="submit" class="assistant-envoyer" id="assistant-envoyer">Envoyer</button>
+        </form>
+
+        <p class="assistant-promo" id="assistant-promo">
+          🔓 Réponses gratuites ici ·
+          <a href="inscription.html">Inscrivez-vous</a> pour l'assistant IA avancé illimité dans votre espace membre.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="confiance" aria-label="Chiffres clés">
+    <p>Rejoint des agriculteurs qui produisent mieux, chaque saison</p>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-chiffre">500+</span>
+        <span class="stat-label">fiches techniques</span>
+      </div>
+      <div class="stat">
+        <span class="stat-chiffre">14</span>
+        <span class="stat-label">régions couvertes</span>
+      </div>
+      <div class="stat">
+        <span class="stat-chiffre">1 000<br/><small style="font-size:0.7rem">FCFA</small></span>
+        <span class="stat-label">par an seulement</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-bas" id="inscription" aria-labelledby="cta-titre">
+    <h2 id="cta-titre">Prêt à mieux cultiver<br />cette saison ?</h2>
+    <p>Inscription en 2 minutes · Paiement via Wave ou Orange Money</p>
+    <a href="inscription.html" class="btn-principal">
+      S'inscrire maintenant →
+    </a>
+  </section>
+
+  <footer>
+    <p>
+      © 2025 WeurFarme · AgriSavoir Sénégal ·
+      <a href="mailto:contact@weurfarme.sn">contact@weurfarme.sn</a>
+    </p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initAssistant({ mode: 'public' });
+    });
+  </script>
+
+</body>
+</html>
+
     <p>
       © 2025 WeurFarme · AgriSavoir Sénégal ·
       <a href="mailto:contact@weurfarme.sn">contact@weurfarme.sn</a>
