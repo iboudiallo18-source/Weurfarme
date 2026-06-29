@@ -1,0 +1,166 @@
+/* ── Page inscription / connexion ── */
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 60px;
+}
+
+.form-header { text-align: center; max-width: 440px; margin-bottom: 32px; }
+
+.form-badge {
+  display: inline-block;
+  background: var(--vert-pale);
+  color: var(--vert);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+
+.form-header h1 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  color: var(--texte);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.form-header p { font-size: 0.92rem; color: var(--texte-doux); }
+
+.carte-form {
+  background: #ffffff;
+  border: 1.5px solid var(--vert-pale);
+  border-radius: var(--rayon);
+  padding: 32px 28px;
+  box-shadow: 0 4px 24px rgba(46,125,50,0.10);
+  width: 100%;
+  max-width: 440px;
+}
+
+.tabs {
+  display: flex;
+  background: var(--vert-pale);
+  border-radius: 50px;
+  padding: 4px;
+  margin-bottom: 28px;
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: transparent;
+  color: var(--texte-doux);
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab-btn.actif {
+  background: var(--vert);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(46,125,50,0.25);
+}
+
+.champ { margin-bottom: 20px; }
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texte);
+  margin-bottom: 6px;
+}
+
+label .requis { color: var(--vert); margin-left: 2px; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #C8E6C9;
+  border-radius: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--texte);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--vert);
+  box-shadow: 0 0 0 3px rgba(46,125,50,0.12);
+}
+
+input::placeholder { color: #9E9E9E; }
+
+.champ-tel { display: flex; gap: 8px; }
+
+.prefixe {
+  display: flex;
+  align-items: center;
+  padding: 13px 12px;
+  background: var(--vert-pale);
+  border: 1.5px solid #C8E6C9;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--vert-fonce);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.champ-tel input { flex: 1; }
+
+.msg-erreur {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--rouge);
+  margin-top: 5px;
+}
+
+input.erreur { border-color: var(--rouge); }
+input.erreur + .msg-erreur,
+input.erreur ~ .msg-erreur { display: block; }
+
+.aide { font-size: 0.78rem; color: var(--texte-doux); margin-top: 5px; }
+
+.btn-action { margin-top: 8px; }
+
+.info-paiement {
+  background: var(--vert-pale);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.info-paiement .icone { font-size: 1.4rem; flex-shrink: 0; }
+.info-paiement p { font-size: 0.82rem; color: var(--texte-doux); line-height: 1.5; }
+.info-paiement strong { color: var(--vert-fonce); }
+
+.liens-bas { text-align: center; margin-top: 22px; font-size: 0.85rem; color: var(--texte-doux); }
+.liens-bas a { color: var(--vert); font-weight: 600; text-decoration: none; }
+.liens-bas a:hover { text-decoration: underline; }
+
+#panneau-connexion { display: none; }
+
+footer { padding: 18px 20px; }
+footer p { font-size: 0.78rem; color: rgba(255,255,255,0.45); }

@@ -1,0 +1,242 @@
+/* ── Page d'accueil ── */
+
+.nav-groupe {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 420px) {
+  .nav-groupe .nav-lien.bordure {
+    padding: 6px 11px;
+    font-size: 0.78rem;
+  }
+}
+
+.hero {
+  background: linear-gradient(160deg, var(--vert-fonce) 0%, var(--vert) 60%, #388E3C 100%);
+  padding: 56px 24px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(249,168,37,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(249,168,37,0.20);
+  border: 1px solid rgba(249,168,37,0.50);
+  color: var(--or);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--or);
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 420px;
+  margin: 0 auto 32px;
+}
+
+.hero-prix {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50px;
+  padding: 10px 22px;
+  margin-bottom: 32px;
+}
+
+.hero-prix .montant {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.9rem;
+  color: var(--or);
+}
+
+.hero-prix .detail {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.80);
+}
+
+.btn-principal { margin-bottom: 40px; }
+
+.hero-scene {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.avantages {
+  padding: 56px 20px 48px;
+  background: var(--blanc);
+}
+
+.cartes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.carte {
+  background: #ffffff;
+  border: 1.5px solid var(--vert-pale);
+  border-radius: var(--rayon);
+  padding: 28px 24px;
+  box-shadow: var(--ombre);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.carte:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(46,125,50,0.15);
+}
+
+.carte-icone {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--vert-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.6rem;
+}
+
+.carte-corps h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--texte);
+  margin-bottom: 6px;
+}
+
+.carte-corps p {
+  font-size: 0.9rem;
+  color: var(--texte-doux);
+  line-height: 1.55;
+}
+
+.confiance {
+  background: var(--vert-pale);
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.confiance p {
+  font-size: 0.9rem;
+  color: var(--texte-doux);
+  margin-bottom: 18px;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-chiffre {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.7rem;
+  color: var(--vert);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--texte-doux);
+  text-align: center;
+  max-width: 80px;
+}
+
+.cta-bas {
+  background: linear-gradient(135deg, var(--vert-fonce), var(--vert));
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.cta-bas h2 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.cta-bas p {
+  color: rgba(255,255,255,0.80);
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 600px) {
+  .cartes { grid-template-columns: 1fr 1fr; }
+  .cartes .carte:last-child { grid-column: 1 / -1; }
+}
+
+@media (min-width: 900px) {
+  .cartes { grid-template-columns: repeat(3, 1fr); }
+  .cartes .carte:last-child { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carte {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: monter 0.5s ease forwards;
+  }
+  .carte:nth-child(1) { animation-delay: 0.1s; }
+  .carte:nth-child(2) { animation-delay: 0.2s; }
+  .carte:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes monter {
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
