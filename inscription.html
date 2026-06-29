@@ -365,6 +365,377 @@
       this.value = this.value.replace(/[^0-9\s]/g, '');
     });
   </script>
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S'inscrire – WeurFarme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="inscription.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="supabase-client.js"></script>
+</head>
+
+<body class="page-app">
+
+  <header>
+    <a href="index.html" class="logo">
+      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="19" cy="19" r="19" fill="rgba(255,255,255,0.12)"/>
+        <path d="M19 30 C19 30 9 22 9 15 C9 10.03 13.48 6 19 6 C24.52 6 29 10.03 29 15 C29 22 19 30 19 30Z" fill="#81C784"/>
+        <path d="M19 30 L19 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M19 20 C19 20 14 17 13 13" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M19 24 C19 24 23 21 24 17" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-texte"><span>Weur</span><span>Farme</span></div>
+    </a>
+    <a href="index.html" class="nav-lien">← Accueil</a>
+  </header>
+
+  <main>
+    <div class="form-header">
+      <div class="form-badge">🌱 Inscription rapide</div>
+      <h1>Rejoins WeurFarme<br />aujourd'hui</h1>
+      <p>Accès illimité à toutes les fiches agricoles pour <strong>1 000 FCFA / an</strong></p>
+    </div>
+
+    <div class="carte-form">
+
+      <div class="tabs" role="tablist">
+        <button class="tab-btn actif" id="tab-inscription" role="tab" aria-selected="true"
+                onclick="basculerOnglet('inscription')">S'inscrire</button>
+        <button class="tab-btn" id="tab-connexion" role="tab" aria-selected="false"
+                onclick="basculerOnglet('connexion')">Se connecter</button>
+      </div>
+
+      <div class="alerte" id="alerte" role="alert" aria-live="polite"></div>
+
+      <!-- ── PANNEAU INSCRIPTION ── -->
+      <div id="panneau-inscription">
+
+        <div class="champ">
+          <label for="prenom">Prénom <span class="requis">*</span></label>
+          <input type="text" id="prenom" placeholder="Ex : Mamadou" autocomplete="given-name" />
+          <span class="msg-erreur">Merci d'entrer ton prénom.</span>
+        </div>
+
+        <div class="champ">
+          <label for="nom">Nom <span class="requis">*</span></label>
+          <input type="text" id="nom" placeholder="Ex : Diallo" autocomplete="family-name" />
+          <span class="msg-erreur">Merci d'entrer ton nom.</span>
+        </div>
+
+        <div class="champ">
+          <label for="telephone">Téléphone <span class="requis">*</span></label>
+          <div class="champ-tel">
+            <span class="prefixe">🇸🇳 +221</span>
+            <input type="tel" id="telephone" placeholder="77 000 00 00"
+                   maxlength="12" inputmode="tel" autocomplete="tel-national" />
+          </div>
+          <span class="msg-erreur">Saisis un numéro valide (9 chiffres).</span>
+        </div>
+
+        <div class="champ">
+          <label for="email">Email <span style="color:#9E9E9E;font-weight:400">(optionnel)</span></label>
+          <input type="email" id="email" placeholder="exemple@gmail.com" autocomplete="email" />
+          <span class="msg-erreur">Adresse email invalide.</span>
+        </div>
+
+        <div class="champ">
+          <label for="mdp">Mot de passe <span class="requis">*</span></label>
+          <input type="password" id="mdp" placeholder="Minimum 8 caractères" autocomplete="new-password" />
+          <p class="aide">Au moins 8 caractères. Tu en auras besoin pour te reconnecter.</p>
+          <span class="msg-erreur">Le mot de passe doit contenir au moins 8 caractères.</span>
+        </div>
+
+        <button class="btn-action" id="btn-inscription" onclick="soumettreInscription()">
+          <span class="spinner" id="spinner-inscription"></span>
+          <span id="texte-btn-inscription">Créer mon compte &amp; Payer 1 000 FCFA →</span>
+        </button>
+
+        <div class="info-paiement">
+          <span class="icone">📱</span>
+          <p>Paiement sécurisé via <strong>Wave</strong> ou <strong>Orange Money</strong>. Ton accès est activé immédiatement après confirmation.</p>
+        </div>
+
+        <div class="liens-bas">
+          Déjà inscrit ? <a href="#" onclick="basculerOnglet('connexion'); return false;">Se connecter</a>
+        </div>
+
+      </div>
+
+      <!-- ── PANNEAU CONNEXION ── -->
+      <div id="panneau-connexion">
+
+        <div class="champ">
+          <label for="login-email">Email ou téléphone <span class="requis">*</span></label>
+          <input type="text" id="login-email" placeholder="email ou +221..." autocomplete="username" />
+          <span class="msg-erreur">Ce champ est requis.</span>
+        </div>
+
+        <div class="champ">
+          <label for="login-mdp">Mot de passe <span class="requis">*</span></label>
+          <input type="password" id="login-mdp" placeholder="Ton mot de passe" autocomplete="current-password" />
+          <span class="msg-erreur">Le mot de passe est requis.</span>
+        </div>
+
+        <button class="btn-action" id="btn-connexion" onclick="soumettreConnexion()">
+          <span class="spinner" id="spinner-connexion"></span>
+          <span id="texte-btn-connexion">Se connecter →</span>
+        </button>
+
+        <div class="liens-bas" style="margin-top:18px">
+          Pas encore de compte ? <a href="#" onclick="basculerOnglet('inscription'); return false;">S'inscrire</a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 WeurFarme · <a href="index.html">Accueil</a> · <a href="mailto:contact@weurfarme.sn">Contact</a></p>
+  </footer>
+
+  <script>
+    /* ══════════════════════════════════════════════════
+       BASCULE D'ONGLETS
+    ══════════════════════════════════════════════════ */
+    function basculerOnglet(onglet) {
+      document.getElementById('panneau-inscription').style.display =
+        onglet === 'inscription' ? 'block' : 'none';
+      document.getElementById('panneau-connexion').style.display =
+        onglet === 'connexion' ? 'block' : 'none';
+
+      document.getElementById('tab-inscription').classList.toggle('actif', onglet === 'inscription');
+      document.getElementById('tab-connexion').classList.toggle('actif', onglet === 'connexion');
+      document.getElementById('tab-inscription').setAttribute('aria-selected', onglet === 'inscription');
+      document.getElementById('tab-connexion').setAttribute('aria-selected', onglet === 'connexion');
+
+      cacherAlerte();
+    }
+
+    /* ══════════════════════════════════════════════════
+       VALIDATION
+    ══════════════════════════════════════════════════ */
+    function validerChamp(input) {
+      const ok = input.value.trim() !== '';
+      input.classList.toggle('erreur', !ok);
+      return ok;
+    }
+
+    function validerEmail(input) {
+      if (input.value.trim() === '') { input.classList.remove('erreur'); return true; }
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      input.classList.toggle('erreur', !ok);
+      return ok;
+    }
+
+    function validerTel(input) {
+      const ok = /^[0-9]{9}$/.test(input.value.replace(/\s/g, ''));
+      input.classList.toggle('erreur', !ok);
+      return ok;
+    }
+
+    function validerMdp(input) {
+      const ok = input.value.length >= 8;
+      input.classList.toggle('erreur', !ok);
+      return ok;
+    }
+
+    /* ══════════════════════════════════════════════════
+       ALERTES
+    ══════════════════════════════════════════════════ */
+    function afficherAlerte(msg, type) {
+      const el = document.getElementById('alerte');
+      el.innerHTML = msg;
+      el.className = 'alerte ' + type;
+      el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function cacherAlerte() {
+      const el = document.getElementById('alerte');
+      el.style.display = 'none';
+    }
+
+    /* ══════════════════════════════════════════════════
+       CHARGEMENT BOUTON
+    ══════════════════════════════════════════════════ */
+    function setChargement(btnId, spinnerId, texteId, actif) {
+      document.getElementById(btnId).disabled           = actif;
+      document.getElementById(spinnerId).style.display  = actif ? 'block' : 'none';
+      document.getElementById(texteId).style.visibility = actif ? 'hidden' : 'visible';
+    }
+
+    /* ══════════════════════════════════════════════════
+       INSCRIPTION RÉELLE — SUPABASE AUTH
+    ══════════════════════════════════════════════════ */
+    async function soumettreInscription() {
+      const prenom = document.getElementById('prenom');
+      const nom    = document.getElementById('nom');
+      const tel    = document.getElementById('telephone');
+      const email  = document.getElementById('email');
+      const mdp    = document.getElementById('mdp');
+
+      // Validation locale
+      const ok = [
+        validerChamp(prenom),
+        validerChamp(nom),
+        validerTel(tel),
+        validerEmail(email),
+        validerMdp(mdp)
+      ].every(Boolean);
+
+      if (!ok) {
+        afficherAlerte('⚠️ Vérifie les champs en rouge avant de continuer.', 'erreur-globale');
+        return;
+      }
+
+      setChargement('btn-inscription', 'spinner-inscription', 'texte-btn-inscription', true);
+      cacherAlerte();
+
+      try {
+        /* ── Construire l'email de connexion ───────────────────────────
+           Si l'utilisateur n'a pas d'email, on crée un email fictif
+           unique basé sur son numéro → il pourra se connecter avec ça
+        ──────────────────────────────────────────────────────────────── */
+        const numeroNettoye = tel.value.replace(/\s/g, '');
+        const emailConnexion = email.value.trim() !== ''
+          ? email.value.trim()
+          : `${numeroNettoye}@weurfarme.sn`;
+
+        /* ── Appel Supabase Auth ──────────────────────────────────────── */
+        const { data, error } = await db.auth.signUp({
+          email:    emailConnexion,
+          password: mdp.value,
+          options: {
+            data: {
+              prenom:    prenom.value.trim(),
+              nom:       nom.value.trim(),
+              telephone: '+221' + numeroNettoye,
+              abonne:    false   // sera mis à true après paiement
+            }
+          }
+        });
+
+        if (error) {
+          // Traduction des erreurs Supabase en français
+          const msg = traduireErreur(error.message);
+          afficherAlerte('❌ ' + msg, 'erreur-globale');
+          return;
+        }
+
+        /* ── Succès : l'utilisateur est créé ─────────────────────────── */
+        afficherAlerte(
+          '✅ <strong>Compte créé avec succès !</strong><br/>' +
+          'Tu vas être redirigé vers le paiement dans 2 secondes…',
+          'succes'
+        );
+
+        // Redirige vers la page paiement après 2s
+        setTimeout(() => {
+          window.location.href = 'paiement.html';
+        }, 2000);
+
+      } catch (err) {
+        console.error('Erreur inscription:', err);
+        afficherAlerte('❌ Une erreur inattendue est survenue. Réessaie.', 'erreur-globale');
+      } finally {
+        setChargement('btn-inscription', 'spinner-inscription', 'texte-btn-inscription', false);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+       CONNEXION RÉELLE — SUPABASE AUTH
+    ══════════════════════════════════════════════════ */
+    async function soumettreConnexion() {
+      const loginEmail = document.getElementById('login-email');
+      const loginMdp   = document.getElementById('login-mdp');
+
+      const ok = [validerChamp(loginEmail), validerChamp(loginMdp)].every(Boolean);
+      if (!ok) {
+        afficherAlerte('⚠️ Remplis tous les champs.', 'erreur-globale');
+        return;
+      }
+
+      setChargement('btn-connexion', 'spinner-connexion', 'texte-btn-connexion', true);
+      cacherAlerte();
+
+      try {
+        /* ── Détecter si c'est un numéro de téléphone ─────────────────
+           Si l'utilisateur saisit son numéro, on reconstruit l'email fictif
+        ──────────────────────────────────────────────────────────────── */
+        let emailConnexion = loginEmail.value.trim();
+        if (/^[0-9\s+]+$/.test(emailConnexion)) {
+          const num = emailConnexion.replace(/[\s+]/g, '').replace(/^221/, '');
+          emailConnexion = `${num}@weurfarme.sn`;
+        }
+
+        const { data, error } = await db.auth.signInWithPassword({
+          email:    emailConnexion,
+          password: loginMdp.value,
+        });
+
+        if (error) {
+          afficherAlerte('❌ ' + traduireErreur(error.message), 'erreur-globale');
+          return;
+        }
+
+        /* ── Succès : vérifier si l'utilisateur est abonné ───────────── */
+        afficherAlerte('✅ Connexion réussie ! Redirection…', 'succes');
+
+        const meta = data.user?.user_metadata || {};
+        if (meta.abonne === true) {
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+        } else {
+          // Compte créé mais pas encore payé → vers paiement
+          setTimeout(() => { window.location.href = 'paiement.html'; }, 1200);
+        }
+
+      } catch (err) {
+        console.error('Erreur connexion:', err);
+        afficherAlerte('❌ Une erreur inattendue est survenue.', 'erreur-globale');
+      } finally {
+        setChargement('btn-connexion', 'spinner-connexion', 'texte-btn-connexion', false);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+       TRADUCTION ERREURS SUPABASE → FRANÇAIS
+    ══════════════════════════════════════════════════ */
+    function traduireErreur(msg) {
+      const erreurs = {
+        'User already registered':              'Un compte existe déjà avec cet email ou ce numéro.',
+        'Invalid login credentials':            'Email/numéro ou mot de passe incorrect.',
+        'Email not confirmed':                  'Confirme ton email avant de te connecter.',
+        'Password should be at least 6 characters': 'Le mot de passe doit avoir au moins 8 caractères.',
+        'Unable to validate email address':     'Adresse email invalide.',
+        'signup_disabled':                      'Les inscriptions sont temporairement désactivées.',
+        'too_many_requests':                    'Trop de tentatives. Attends quelques minutes.',
+      };
+      for (const [cle, valeur] of Object.entries(erreurs)) {
+        if (msg.toLowerCase().includes(cle.toLowerCase())) return valeur;
+      }
+      return msg; // fallback : message brut
+    }
+
+    /* ══════════════════════════════════════════════════
+       FORMATAGE TÉLÉPHONE EN TEMPS RÉEL
+    ══════════════════════════════════════════════════ */
+    document.getElementById('telephone').addEventListener('input', function () {
+      this.value = this.value.replace(/[^0-9\s]/g, '');
+    });
+  </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
