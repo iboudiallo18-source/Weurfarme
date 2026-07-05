@@ -2,6 +2,9 @@
   publish = "."
   command = "printf 'const SUPABASE_URL = \"%s\";\\nconst SUPABASE_ANON_KEY = \"%s\";\\nconst AI_ASSISTANT_FUNCTION = \"ask-assistant\";\\n' \"$SUPABASE_URL\" \"$SUPABASE_ANON_KEY\" > config.js && echo 'config.js cree'"
 
+[functions]
+  directory = "netlify/functions"
+
 [[headers]]
   for = "/*"
   [headers.values]
