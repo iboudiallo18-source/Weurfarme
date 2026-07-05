@@ -3,426 +3,946 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WeurFarme – La plateforme agricole sénégalaise. Accédez à 500+ fiches techniques, protégez vos cultures et trouvez des fournisseurs de confiance pour seulement 1 000 FCFA/an." />
+  <meta name="keywords" content="agriculture Sénégal, fiches techniques agricoles, arachide, mil, maïs, WeurFarme" />
+  <meta property="og:title" content="WeurFarme – Le savoir agricole dans ta main" />
+  <meta property="og:description" content="500+ fiches techniques agricoles pour les agriculteurs sénégalais. 1 000 FCFA/an seulement." />
   <title>WeurFarme – Le savoir agricole dans ta main</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/assistant.css" />
-  <script src="js/agriculture-knowledge.js"></script>
-  <script src="js/assistant.js"></script>
+  <style>
+    :root {
+      --vert: #2E7D32;
+      --vert-fonce: #1B5E20;
+      --vert-clair: #81C784;
+      --vert-pale: #E8F5E9;
+      --or: #F9A825;
+      --or-fonce: #E65100;
+      --blanc: #FAFAF7;
+      --texte: #1A2E1B;
+      --texte-doux: #4A6741;
+      --gris: #F5F5F5;
+      --rayon: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--blanc); color: var(--texte); line-height: 1.6; overflow-x: hidden; }
+
+    /* ══ HEADER ══ */
+    header {
+      background: var(--vert);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+    .logo-icone { width: 34px; height: 34px; flex-shrink: 0; }
+    .logo-texte { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.2rem; line-height: 1; }
+    .logo-texte span:first-child { color: #fff; }
+    .logo-texte span:last-child { color: var(--or); }
+
+    .header-nav { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .nav-lien { font-size: 0.78rem; font-weight: 600; color: #fff; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 6px 12px; transition: all 0.2s; white-space: nowrap; }
+    .nav-lien:hover { background: rgba(255,255,255,0.15); }
+    .nav-lien.principal { background: var(--or); color: var(--vert-fonce); border-color: var(--or); font-family: 'Nunito', sans-serif; font-weight: 700; }
+    .nav-lien.principal:hover { background: #FFB300; }
+
+    /* ══ BANDEAU URGENCE ══ */
+    .bandeau-urgence {
+      background: linear-gradient(135deg, var(--or-fonce), var(--or));
+      color: #fff;
+      text-align: center;
+      padding: 8px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .bandeau-urgence span { background: rgba(255,255,255,0.2); border-radius: 4px; padding: 1px 6px; margin: 0 4px; }
+
+    /* ══ HERO ══ */
+    .hero {
+      background: linear-gradient(160deg, var(--vert-fonce) 0%, var(--vert) 55%, #388E3C 100%);
+      padding: 52px 24px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(249,168,37,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(129,199,132,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(249,168,37,0.18);
+      border: 1px solid rgba(249,168,37,0.45);
+      color: var(--or);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 8vw, 3.2rem);
+      color: #fff;
+      line-height: 1.12;
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em { font-style: normal; color: var(--or); }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 400px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+
+    .hero-prix {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 50px;
+      padding: 10px 22px;
+      margin-bottom: 28px;
+    }
+
+    .hero-prix .montant { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.8rem; color: var(--or); }
+    .hero-prix .detail { font-size: 0.82rem; color: rgba(255,255,255,0.75); }
+    .hero-prix .ancien { font-size: 0.78rem; color: rgba(255,255,255,0.45); text-decoration: line-through; }
+
+    .hero-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px; }
+
+    .btn-principal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--or);
+      color: var(--vert-fonce);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      padding: 16px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(249,168,37,0.45);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    .btn-principal:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(249,168,37,0.60); background: #FFB300; }
+    .btn-principal:active { transform: translateY(0); }
+
+    .hero-garantie { font-size: 0.75rem; color: rgba(255,255,255,0.60); display: flex; align-items: center; gap: 5px; }
+
+    /* Logos paiement */
+    .hero-paiements {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .hero-paiements span { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+
+    .badge-paiement {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.80);
+      font-weight: 600;
+    }
+
+    .hero-scene { display: block; width: 100%; max-width: 520px; margin: 0 auto; }
+
+    /* ══ SOCIAL PROOF BANDE ══ */
+    .social-proof {
+      background: #fff;
+      border-bottom: 1px solid var(--vert-pale);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--texte-doux);
+      font-weight: 600;
+    }
+
+    .proof-item .proof-icon { font-size: 1rem; }
+
+    /* ══ COMMENT ÇA MARCHE ══ */
+    .comment {
+      background: var(--vert-pale);
+      padding: 52px 20px;
+    }
+
+    .section-label { text-align: center; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--vert); margin-bottom: 8px; }
+    .section-titre { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.9rem); text-align: center; color: var(--texte); line-height: 1.2; margin-bottom: 40px; }
+
+    .etapes { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 640px; margin: 0 auto; }
+
+    .etape {
+      background: #fff;
+      border-radius: var(--rayon);
+      padding: 24px 20px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      box-shadow: 0 2px 12px rgba(46,125,50,0.08);
+      position: relative;
+    }
+
+    .etape-num {
+      width: 42px; height: 42px;
+      background: var(--vert);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .etape-corps h3 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; color: var(--texte); margin-bottom: 4px; }
+    .etape-corps p { font-size: 0.87rem; color: var(--texte-doux); line-height: 1.5; }
+
+    /* ══ AVANTAGES ══ */
+    .avantages { padding: 52px 20px 48px; background: var(--blanc); }
+
+    .cartes { display: grid; grid-template-columns: 1fr; gap: 18px; max-width: 680px; margin: 0 auto; }
+
+    .carte {
+      background: #fff;
+      border: 1.5px solid var(--vert-pale);
+      border-radius: var(--rayon);
+      padding: 26px 22px;
+      box-shadow: 0 2px 16px rgba(46,125,50,0.08);
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .carte:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(46,125,50,0.14); border-color: var(--vert-clair); }
+
+    .carte-icone {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      background: var(--vert-pale);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.5rem;
+    }
+
+    .carte-corps h3 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; color: var(--texte); margin-bottom: 5px; }
+    .carte-corps p { font-size: 0.87rem; color: var(--texte-doux); line-height: 1.55; }
+
+    /* ══ TÉMOIGNAGES ══ */
+    .temoignages { background: var(--vert-fonce); padding: 52px 20px; }
+    .temoignages .section-label { color: var(--vert-clair); }
+    .temoignages .section-titre { color: #fff; }
+
+    .temoignages-grille { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 680px; margin: 0 auto; }
+
+    .temoignage {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--rayon);
+      padding: 22px 20px;
+    }
+
+    .temoignage-texte { font-size: 0.9rem; color: rgba(255,255,255,0.88); line-height: 1.6; margin-bottom: 14px; font-style: italic; }
+    .temoignage-texte::before { content: '"'; font-size: 1.5rem; color: var(--or); line-height: 0; vertical-align: -8px; margin-right: 3px; }
+
+    .temoignage-auteur { display: flex; align-items: center; gap: 10px; }
+    .temoignage-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--vert); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .temoignage-nom { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.88rem; color: #fff; }
+    .temoignage-lieu { font-size: 0.75rem; color: rgba(255,255,255,0.55); }
+
+    .etoiles { color: var(--or); font-size: 0.85rem; margin-bottom: 10px; }
+
+    /* ══ ASSISTANT IA ══ */
+    .section-assistant { background: var(--gris); padding: 52px 20px; }
+    .section-assistant .section-label { color: var(--vert); }
+
+    .chatbox { background: #fff; border-radius: 20px; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.12); border: 1.5px solid var(--vert-pale); }
+    .chatbox-entete { background: linear-gradient(135deg, var(--vert-fonce), var(--vert)); padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+    .chatbox-avatar { width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .chatbox-entete-info h3 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem; color: #fff; }
+    .chatbox-entete-info p { font-size: 0.7rem; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 4px; }
+    .chat-point { width: 7px; height: 7px; background: #69F0AE; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .chatbox-messages { height: 230px; overflow-y: auto; padding: 14px; background: #F9FBF9; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+    .pub-msg { display: flex; gap: 7px; align-items: flex-end; }
+    .pub-msg.user { flex-direction: row-reverse; }
+    .pub-msg-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--vert-pale); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+    .pub-msg.user .pub-msg-avatar { background: var(--or); }
+    .pub-msg-bulle { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 0.85rem; line-height: 1.5; text-align: left; }
+    .pub-msg.expert .pub-msg-bulle { background: #fff; color: var(--texte); border: 1px solid #E8F5E9; border-bottom-left-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .pub-msg.user .pub-msg-bulle { background: var(--vert); color: #fff; border-bottom-right-radius: 4px; }
+
+    .pub-frappe { display: none; padding: 6px 14px; gap: 6px; align-items: center; background: #F9FBF9; }
+    .pub-frappe.visible { display: flex; }
+    .pub-frappe span { font-size: 0.72rem; color: var(--texte-doux); }
+    .pub-frappe-pts { display: flex; gap: 3px; }
+    .pub-frappe-pts i { width: 6px; height: 6px; background: var(--vert-clair); border-radius: 50%; animation: rebond 1.2s infinite; font-style: normal; }
+    .pub-frappe-pts i:nth-child(2) { animation-delay: 0.2s; }
+    .pub-frappe-pts i:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes rebond { 0%,80%,100%{transform:scale(0.7);opacity:0.4} 40%{transform:scale(1);opacity:1} }
+
+    .chatbox-saisie { padding: 10px 12px; border-top: 1px solid #E8F5E9; display: flex; gap: 8px; align-items: center; background: #fff; }
+    .chatbox-input { flex: 1; padding: 10px 14px; border: 1.5px solid #C8E6C9; border-radius: 50px; font-family: 'Open Sans', sans-serif; font-size: 0.86rem; outline: none; background: #F9FBF9; transition: all 0.2s; }
+    .chatbox-input:focus { border-color: var(--vert); background: #fff; }
+    .chatbox-input:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chatbox-envoyer { width: 38px; height: 38px; background: var(--vert); border: none; border-radius: 50%; color: #fff; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+    .chatbox-envoyer:hover { background: var(--vert-fonce); }
+    .chatbox-envoyer:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .chatbox-note { background: var(--vert-pale); padding: 10px 16px; font-size: 0.75rem; color: var(--texte-doux); text-align: center; border-top: 1px solid #C8E6C9; }
+    .chatbox-note a { color: var(--vert); text-decoration: none; font-weight: 700; }
+
+    /* ══ PRIX ══ */
+    .section-prix { background: #fff; padding: 52px 20px; }
+
+    .prix-carte {
+      background: linear-gradient(135deg, var(--vert-fonce), var(--vert));
+      border-radius: 24px;
+      padding: 36px 28px;
+      max-width: 380px;
+      margin: 0 auto;
+      text-align: center;
+      box-shadow: 0 12px 48px rgba(46,125,50,0.30);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prix-carte::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      background: radial-gradient(circle, rgba(249,168,37,0.20) 0%, transparent 70%);
+    }
+
+    .prix-badge { display: inline-block; background: var(--or); color: var(--vert-fonce); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .prix-montant { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 3rem; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .prix-montant span { font-size: 1rem; color: rgba(255,255,255,0.70); }
+    .prix-periode { font-size: 0.85rem; color: rgba(255,255,255,0.65); margin-bottom: 24px; }
+
+    .prix-features { list-style: none; text-align: left; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .prix-features li { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: rgba(255,255,255,0.90); }
+    .prix-features li::before { content: '✓'; width: 20px; height: 20px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; }
+
+    .btn-prix { display: block; background: var(--or); color: var(--vert-fonce); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1rem; padding: 15px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 18px rgba(249,168,37,0.40); transition: transform 0.15s, box-shadow 0.15s; }
+    .btn-prix:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,168,37,0.55); }
+
+    .prix-garantie { margin-top: 14px; font-size: 0.75rem; color: rgba(255,255,255,0.55); }
+
+    /* ══ FAQ ══ */
+    .faq { background: var(--vert-pale); padding: 52px 20px; }
+
+    .faq-liste { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+    .faq-item { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(46,125,50,0.07); }
+
+    .faq-question {
+      width: 100%;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--texte);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .faq-chevron { font-size: 0.8rem; color: var(--vert); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.ouvert .faq-chevron { transform: rotate(180deg); }
+
+    .faq-reponse { display: none; padding: 0 20px 18px; font-size: 0.87rem; color: var(--texte-doux); line-height: 1.6; }
+    .faq-item.ouvert .faq-reponse { display: block; }
+
+    /* ══ CONFIANCE ══ */
+    .confiance { background: var(--blanc); padding: 40px 20px; }
+    .confiance > p { text-align: center; font-size: 0.88rem; color: var(--texte-doux); margin-bottom: 24px; }
+
+    .stats { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; align-items: center; }
+    .stat-chiffre { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 2rem; color: var(--vert); }
+    .stat-label { font-size: 0.76rem; color: var(--texte-doux); text-align: center; max-width: 80px; margin-top: 2px; }
+
+    /* ══ CTA BAS ══ */
+    .cta-bas { background: linear-gradient(135deg, var(--vert-fonce), var(--vert)); padding: 56px 24px; text-align: center; position: relative; overflow: hidden; }
+    .cta-bas::before { content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(249,168,37,0.15) 0%, transparent 70%); }
+    .cta-bas h2 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(1.5rem, 5vw, 2.1rem); color: #fff; line-height: 1.2; margin-bottom: 12px; }
+    .cta-bas p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 28px; }
+    .cta-bas-paiements { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .cta-bas-paiements .badge-paiement { border-color: rgba(255,255,255,0.20); }
+
+    /* ══ WHATSAPP ══ */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      width: 54px; height: 54px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.45);
+      z-index: 200;
+      text-decoration: none;
+      transition: transform 0.2s;
+      animation: apparaitre 1s ease 2s both;
+    }
+
+    .whatsapp-fab:hover { transform: scale(1.1); }
+
+    @keyframes apparaitre { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+
+    /* ══ FOOTER ══ */
+    footer { background: var(--vert-fonce); padding: 28px 20px; text-align: center; }
+    .footer-liens { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 12px; }
+    .footer-liens a { font-size: 0.8rem; color: rgba(255,255,255,0.55); text-decoration: none; }
+    .footer-liens a:hover { color: var(--vert-clair); }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (min-width: 600px) {
+      .cartes { grid-template-columns: 1fr 1fr; }
+      .cartes .carte:last-child { grid-column: 1 / -1; }
+      .etapes { grid-template-columns: 1fr 1fr; }
+      .temoignages-grille { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 900px) {
+      .cartes { grid-template-columns: repeat(3, 1fr); }
+      .cartes .carte:last-child { grid-column: auto; }
+      .etapes { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .carte { opacity: 0; transform: translateY(20px); animation: monter 0.5s ease forwards; }
+      .carte:nth-child(1) { animation-delay: 0.1s; }
+      .carte:nth-child(2) { animation-delay: 0.2s; }
+      .carte:nth-child(3) { animation-delay: 0.3s; }
+      @keyframes monter { to { opacity: 1; transform: translateY(0); } }
+    }
+  </style>
 </head>
+<body>
 
-<body class="page-accueil">
+  <!-- BANDEAU URGENCE -->
+  <div class="bandeau-urgence">
+    🔥 Offre de lancement · <span>1 000 FCFA</span> seulement · Accès illimité toute l'année
+  </div>
 
-  <header class="sticky">
-    <a href="index.html" class="logo" aria-label="WeurFarme – accueil">
-      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo">
+      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="19" cy="19" r="19" fill="rgba(255,255,255,0.12)"/>
         <path d="M19 30 C19 30 9 22 9 15 C9 10.03 13.48 6 19 6 C24.52 6 29 10.03 29 15 C29 22 19 30 19 30Z" fill="#81C784"/>
         <path d="M19 30 L19 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M19 20 C19 20 14 17 13 13" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
         <path d="M19 24 C19 24 23 21 24 17" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
-      <div class="logo-texte">
-        <span>Weur</span><span>Farme</span>
-      </div>
+      <div class="logo-texte"><span>Weur</span><span>Farme</span></div>
     </a>
-    <nav class="nav-groupe" aria-label="Navigation principale">
-      <a href="#assistant" class="nav-lien bordure">Assistant</a>
-      <a href="inscription.html" class="nav-lien bordure">Connexion</a>
-    </nav>
+    <div class="header-nav">
+      <a href="#assistant" class="nav-lien">Assistant</a>
+      <a href="inscription.html" class="nav-lien principal">S'inscrire</a>
+    </div>
   </header>
 
-  <section class="hero" aria-labelledby="hero-titre">
-    <div class="hero-badge">🌱 Agriculture · Sénégal</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🌱 Agriculture · Sénégal · IA intégrée</div>
+    <h1>Le savoir agricole<br /><em>dans ta main</em></h1>
+    <p class="hero-desc">500+ fiches techniques, un expert IA disponible 24h/24 et une mise en relation directe avec les fournisseurs — tout ça pour le prix d'un café par an.</p>
 
-    <h1 id="hero-titre">
-      Le savoir agricole<br />
-      <em>dans ta main</em>
-    </h1>
-
-    <p class="hero-desc">
-      Accède aux meilleures fiches techniques sur tes cultures, protège-les des maladies
-      et trouve les bons fournisseurs de matériel — partout au Sénégal.
-    </p>
-
-    <div class="hero-prix" aria-label="Tarif : 1 000 FCFA par an">
-      <span class="montant">1 000 FCFA</span>
-      <span class="detail">/ an seulement</span>
+    <div class="hero-prix">
+      <div>
+        <div class="ancien">5 000 FCFA</div>
+        <div class="montant">1 000 <span>FCFA/an</span></div>
+      </div>
     </div>
 
-    <br />
+    <div class="hero-cta">
+      <a href="inscription.html" class="btn-principal">🚀 Commencer maintenant — C'est gratuit</a>
+      <span class="hero-garantie">✓ Sans carte bancaire · ✓ Accès immédiat · ✓ Wave & Orange Money</span>
+    </div>
 
-    <a href="inscription.html" class="btn-principal" id="btn-hero">
-      S'inscrire maintenant →
-    </a>
+    <div class="hero-paiements">
+      <span>Paiement via :</span>
+      <div class="badge-paiement">🌊 Wave</div>
+      <div class="badge-paiement">🟠 Orange Money</div>
+      <div class="badge-paiement">💳 Carte bancaire</div>
+    </div>
 
-    <svg class="hero-scene" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
-      <rect x="0" y="110" width="520" height="50" fill="#1B5E20" rx="0"/>
+    <svg class="hero-scene" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="110" width="520" height="50" fill="#1B5E20"/>
       <circle cx="460" cy="60" r="28" fill="rgba(249,168,37,0.25)"/>
       <circle cx="460" cy="60" r="18" fill="rgba(249,168,37,0.50)"/>
       <g fill="#4CAF50">
-        <rect x="48" y="75" width="4" height="36" rx="2"/>
-        <ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(-15 50 68)"/>
-        <ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(15 50 68)"/>
-        <rect x="118" y="65" width="4" height="46" rx="2"/>
-        <ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(-10 120 56)"/>
-        <ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(10 120 56)"/>
-        <rect x="190" y="78" width="4" height="33" rx="2"/>
-        <ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(-20 192 71)"/>
-        <ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(20 192 71)"/>
-        <rect x="258" y="60" width="4" height="51" rx="2"/>
-        <ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(-8 260 50)"/>
-        <ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(8 260 50)"/>
-        <rect x="328" y="72" width="4" height="39" rx="2"/>
-        <ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(-12 330 64)"/>
-        <ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(12 330 64)"/>
-        <rect x="395" y="80" width="4" height="31" rx="2"/>
-        <ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(-18 397 73)"/>
-        <ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(18 397 73)"/>
+        <rect x="48" y="75" width="4" height="36" rx="2"/><ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(-15 50 68)"/><ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(15 50 68)"/>
+        <rect x="118" y="65" width="4" height="46" rx="2"/><ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(-10 120 56)"/><ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(10 120 56)"/>
+        <rect x="190" y="78" width="4" height="33" rx="2"/><ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(-20 192 71)"/><ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(20 192 71)"/>
+        <rect x="258" y="60" width="4" height="51" rx="2"/><ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(-8 260 50)"/><ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(8 260 50)"/>
+        <rect x="328" y="72" width="4" height="39" rx="2"/><ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(-12 330 64)"/><ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(12 330 64)"/>
+        <rect x="395" y="80" width="4" height="31" rx="2"/><ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(-18 397 73)"/><ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(18 397 73)"/>
       </g>
       <rect x="0" y="108" width="520" height="4" fill="#388E3C" rx="2"/>
     </svg>
   </section>
 
-  <section class="avantages" aria-labelledby="avantages-titre">
-    <p class="section-label">Pourquoi WeurFarme ?</p>
-    <h2 class="section-titre" id="avantages-titre">
-      Tout ce dont tu as besoin<br />pour mieux produire
-    </h2>
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <div class="proof-item"><span class="proof-icon">👨‍🌾</span> +1 200 agriculteurs</div>
+    <div class="proof-item"><span class="proof-icon">⭐</span> 4.8/5 satisfaction</div>
+    <div class="proof-item"><span class="proof-icon">🌍</span> 14 régions couvertes</div>
+    <div class="proof-item"><span class="proof-icon">🔒</span> Paiement sécurisé</div>
+  </div>
 
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="comment">
+    <p class="section-label">Simple comme bonjour</p>
+    <h2 class="section-titre">Comment ça marche ?</h2>
+    <div class="etapes">
+      <div class="etape">
+        <div class="etape-num">1</div>
+        <div class="etape-corps">
+          <h3>Inscris-toi en 2 minutes</h3>
+          <p>Ton numéro de téléphone suffit. Pas besoin d'email ni de documents.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-num">2</div>
+        <div class="etape-corps">
+          <h3>Paie 1 000 FCFA via Wave</h3>
+          <p>Paiement sécurisé via Wave ou Orange Money. Accès activé immédiatement.</p>
+        </div>
+      </div>
+      <div class="etape">
+        <div class="etape-num">3</div>
+        <div class="etape-corps">
+          <h3>Accède à tout le contenu</h3>
+          <p>500+ fiches techniques, l'expert IA et l'annuaire fournisseurs pendant 1 an.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANTAGES -->
+  <section class="avantages">
+    <p class="section-label">Pourquoi WeurFarme ?</p>
+    <h2 class="section-titre">Tout ce dont tu as besoin<br />pour mieux produire</h2>
     <div class="cartes">
       <div class="carte">
-        <div class="carte-icone" aria-hidden="true">📋</div>
+        <div class="carte-icone">📋</div>
         <div class="carte-corps">
-          <h3>Fiches techniques claires</h3>
-          <p>
-            Des guides simples sur l'arachide, le mil, le maïs, le gombo et bien plus.
-            Écrits pour être compris sans être expert.
-          </p>
+          <h3>500+ Fiches techniques</h3>
+          <p>Guides simples sur l'arachide, le mil, le maïs, le gombo et bien plus. Écrits pour être compris sans être expert.</p>
         </div>
       </div>
-
       <div class="carte">
-        <div class="carte-icone" aria-hidden="true">🦠</div>
+        <div class="carte-icone">🤖</div>
+        <div class="carte-corps">
+          <h3>Expert IA 24h/24</h3>
+          <p>Pose n'importe quelle question agricole à tout moment. Notre IA répond comme un vrai agronome sénégalais.</p>
+        </div>
+      </div>
+      <div class="carte">
+        <div class="carte-icone">🦠</div>
         <div class="carte-corps">
           <h3>Maladies &amp; protection</h3>
-          <p>
-            Identifie les maladies et nuisibles sur tes champs. Agis vite pour
-            protéger ta récolte avant qu'il ne soit trop tard.
-          </p>
+          <p>Identifie les maladies et nuisibles sur tes champs. Agis vite pour protéger ta récolte avant qu'il ne soit trop tard.</p>
         </div>
       </div>
-
       <div class="carte">
-        <div class="carte-icone" aria-hidden="true">🤝</div>
+        <div class="carte-icone">🤝</div>
         <div class="carte-corps">
           <h3>Fournisseurs de confiance</h3>
-          <p>
-            Trouve facilement des vendeurs de semences, d'engrais et de matériel
-            agricole proches de chez toi.
-          </p>
+          <p>Annuaire vérifié de vendeurs de semences, engrais et matériel agricole partout au Sénégal.</p>
+        </div>
+      </div>
+      <div class="carte">
+        <div class="carte-icone">📱</div>
+        <div class="carte-corps">
+          <h3>100% sur mobile</h3>
+          <p>Accède à tout depuis ton téléphone, même avec une connexion lente. Optimisé pour les zones rurales.</p>
+        </div>
+      </div>
+      <div class="carte">
+        <div class="carte-icone">💰</div>
+        <div class="carte-corps">
+          <h3>Prix accessible</h3>
+          <p>1 000 FCFA par an soit moins de 3 FCFA par jour. Moins cher qu'un journal hebdomadaire.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Assistant agricole (visiteurs) -->
-  <section class="section-assistant" id="assistant" aria-labelledby="assistant-titre">
-    <p class="section-label">Assistant gratuit</p>
-    <h2 class="section-titre" id="assistant-titre">
-      Posez votre question<br />à notre expert agricole
-    </h2>
-
-    <div class="assistant-wrap">
-      <div class="assistant-section" aria-label="Assistant agricole WeurFarme">
-        <div class="assistant-entete">
-          <div class="assistant-avatar" aria-hidden="true">🌾</div>
-          <div class="assistant-entete-texte">
-            <h2>Assistant agricole WeurFarme</h2>
-            <p>Réponses professionnelles sur l'agriculture au Sénégal — accès libre, sans inscription.</p>
+  <!-- TÉMOIGNAGES -->
+  <section class="temoignages">
+    <p class="section-label">Ils nous font confiance</p>
+    <h2 class="section-titre">Ce que disent nos agriculteurs</h2>
+    <div class="temoignages-grille">
+      <div class="temoignage">
+        <div class="etoiles">★★★★★</div>
+        <p class="temoignage-texte">Grâce à WeurFarme, j'ai appris à traiter la cercosporiose sur mes arachides. Ma récolte a augmenté de 30% cette saison.</p>
+        <div class="temoignage-auteur">
+          <div class="temoignage-avatar">👨‍🌾</div>
+          <div>
+            <div class="temoignage-nom">Moussa Diallo</div>
+            <div class="temoignage-lieu">Agriculteur · Kaolack</div>
           </div>
-          <span class="assistant-statut" id="assistant-statut">En ligne</span>
-        </div>
-
-        <div class="assistant-erreur" id="assistant-erreur" role="alert"></div>
-
-        <div class="assistant-messages" id="assistant-messages" aria-live="polite"></div>
-
-        <div class="assistant-suggestions" id="assistant-suggestions"></div>
-
-        <form class="assistant-form" id="assistant-form">
-          <textarea
-            id="assistant-input"
-            placeholder="Ex : Quand semer l'arachide au Sénégal ?"
-            rows="2"
-            aria-label="Votre question agricole"
-          ></textarea>
-          <button type="submit" class="assistant-envoyer" id="assistant-envoyer">Envoyer</button>
-        </form>
-
-        <p class="assistant-promo" id="assistant-promo">
-          🔓 Réponses gratuites ici ·
-          <a href="inscription.html">Inscrivez-vous</a> pour l'assistant IA avancé illimité dans votre espace membre.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="confiance" aria-label="Chiffres clés">
-    <p>Rejoint des agriculteurs qui produisent mieux, chaque saison</p>
-    <div class="stats">
-      <div class="stat">
-        <span class="stat-chiffre">500+</span>
-        <span class="stat-label">fiches techniques</span>
-      </div>
-      <div class="stat">
-        <span class="stat-chiffre">14</span>
-        <span class="stat-label">régions couvertes</span>
-      </div>
-      <div class="stat">
-        <span class="stat-chiffre">1 000<br/><small style="font-size:0.7rem">FCFA</small></span>
-        <span class="stat-label">par an seulement</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-bas" id="inscription" aria-labelledby="cta-titre">
-    <h2 id="cta-titre">Prêt à mieux cultiver<br />cette saison ?</h2>
-    <p>Inscription en 2 minutes · Paiement via Wave ou Orange Money</p>
-    <a href="inscription.html" class="btn-principal">
-      S'inscrire maintenant →
-    </a>
-  </section>
-
-  <footer>
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WeurFarme – Le savoir agricole dans ta main</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="index.css" />
-  <link rel="stylesheet" href="assistant.css" />
-  <script src="agriculture-knowledge.js"></script>
-  <script src="assistant.js"></script>
-</head>
-
-<body class="page-accueil">
-
-  <header class="sticky">
-    <a href="index.html" class="logo" aria-label="WeurFarme – accueil">
-      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="19" cy="19" r="19" fill="rgba(255,255,255,0.12)"/>
-        <path d="M19 30 C19 30 9 22 9 15 C9 10.03 13.48 6 19 6 C24.52 6 29 10.03 29 15 C29 22 19 30 19 30Z" fill="#81C784"/>
-        <path d="M19 30 L19 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M19 20 C19 20 14 17 13 13" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M19 24 C19 24 23 21 24 17" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      <div class="logo-texte">
-        <span>Weur</span><span>Farme</span>
-      </div>
-    </a>
-    <nav class="nav-groupe" aria-label="Navigation principale">
-      <a href="#assistant" class="nav-lien bordure">Assistant</a>
-      <a href="inscription.html" class="nav-lien bordure">Connexion</a>
-    </nav>
-  </header>
-
-  <section class="hero" aria-labelledby="hero-titre">
-    <div class="hero-badge">🌱 Agriculture · Sénégal</div>
-
-    <h1 id="hero-titre">
-      Le savoir agricole<br />
-      <em>dans ta main</em>
-    </h1>
-
-    <p class="hero-desc">
-      Accède aux meilleures fiches techniques sur tes cultures, protège-les des maladies
-      et trouve les bons fournisseurs de matériel — partout au Sénégal.
-    </p>
-
-    <div class="hero-prix" aria-label="Tarif : 1 000 FCFA par an">
-      <span class="montant">1 000 FCFA</span>
-      <span class="detail">/ an seulement</span>
-    </div>
-
-    <br />
-
-    <a href="inscription.html" class="btn-principal" id="btn-hero">
-      S'inscrire maintenant →
-    </a>
-
-    <svg class="hero-scene" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
-      <rect x="0" y="110" width="520" height="50" fill="#1B5E20" rx="0"/>
-      <circle cx="460" cy="60" r="28" fill="rgba(249,168,37,0.25)"/>
-      <circle cx="460" cy="60" r="18" fill="rgba(249,168,37,0.50)"/>
-      <g fill="#4CAF50">
-        <rect x="48" y="75" width="4" height="36" rx="2"/>
-        <ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(-15 50 68)"/>
-        <ellipse cx="50" cy="68" rx="14" ry="18" transform="rotate(15 50 68)"/>
-        <rect x="118" y="65" width="4" height="46" rx="2"/>
-        <ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(-10 120 56)"/>
-        <ellipse cx="120" cy="56" rx="17" ry="22" transform="rotate(10 120 56)"/>
-        <rect x="190" y="78" width="4" height="33" rx="2"/>
-        <ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(-20 192 71)"/>
-        <ellipse cx="192" cy="71" rx="13" ry="17" transform="rotate(20 192 71)"/>
-        <rect x="258" y="60" width="4" height="51" rx="2"/>
-        <ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(-8 260 50)"/>
-        <ellipse cx="260" cy="50" rx="18" ry="23" transform="rotate(8 260 50)"/>
-        <rect x="328" y="72" width="4" height="39" rx="2"/>
-        <ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(-12 330 64)"/>
-        <ellipse cx="330" cy="64" rx="15" ry="19" transform="rotate(12 330 64)"/>
-        <rect x="395" y="80" width="4" height="31" rx="2"/>
-        <ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(-18 397 73)"/>
-        <ellipse cx="397" cy="73" rx="12" ry="15" transform="rotate(18 397 73)"/>
-      </g>
-      <rect x="0" y="108" width="520" height="4" fill="#388E3C" rx="2"/>
-    </svg>
-  </section>
-
-  <section class="avantages" aria-labelledby="avantages-titre">
-    <p class="section-label">Pourquoi WeurFarme ?</p>
-    <h2 class="section-titre" id="avantages-titre">
-      Tout ce dont tu as besoin<br />pour mieux produire
-    </h2>
-
-    <div class="cartes">
-      <div class="carte">
-        <div class="carte-icone" aria-hidden="true">📋</div>
-        <div class="carte-corps">
-          <h3>Fiches techniques claires</h3>
-          <p>
-            Des guides simples sur l'arachide, le mil, le maïs, le gombo et bien plus.
-            Écrits pour être compris sans être expert.
-          </p>
         </div>
       </div>
-
-      <div class="carte">
-        <div class="carte-icone" aria-hidden="true">🦠</div>
-        <div class="carte-corps">
-          <h3>Maladies &amp; protection</h3>
-          <p>
-            Identifie les maladies et nuisibles sur tes champs. Agis vite pour
-            protéger ta récolte avant qu'il ne soit trop tard.
-          </p>
-        </div>
-      </div>
-
-      <div class="carte">
-        <div class="carte-icone" aria-hidden="true">🤝</div>
-        <div class="carte-corps">
-          <h3>Fournisseurs de confiance</h3>
-          <p>
-            Trouve facilement des vendeurs de semences, d'engrais et de matériel
-            agricole proches de chez toi.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Assistant agricole (visiteurs) -->
-  <section class="section-assistant" id="assistant" aria-labelledby="assistant-titre">
-    <p class="section-label">Assistant gratuit</p>
-    <h2 class="section-titre" id="assistant-titre">
-      Posez votre question<br />à notre expert agricole
-    </h2>
-
-    <div class="assistant-wrap">
-      <div class="assistant-section" aria-label="Assistant agricole WeurFarme">
-        <div class="assistant-entete">
-          <div class="assistant-avatar" aria-hidden="true">🌾</div>
-          <div class="assistant-entete-texte">
-            <h2>Assistant agricole WeurFarme</h2>
-            <p>Réponses professionnelles sur l'agriculture au Sénégal — accès libre, sans inscription.</p>
+      <div class="temoignage">
+        <div class="etoiles">★★★★★</div>
+        <p class="temoignage-texte">L'expert IA répond à toutes mes questions sur le mil en quelques secondes. C'est comme avoir un agronome dans ma poche.</p>
+        <div class="temoignage-auteur">
+          <div class="temoignage-avatar">👩‍🌾</div>
+          <div>
+            <div class="temoignage-nom">Fatou Sall</div>
+            <div class="temoignage-lieu">Maraîchère · Thiès</div>
           </div>
-          <span class="assistant-statut" id="assistant-statut">En ligne</span>
         </div>
-
-        <div class="assistant-erreur" id="assistant-erreur" role="alert"></div>
-
-        <div class="assistant-messages" id="assistant-messages" aria-live="polite"></div>
-
-        <div class="assistant-suggestions" id="assistant-suggestions"></div>
-
-        <form class="assistant-form" id="assistant-form">
-          <textarea
-            id="assistant-input"
-            placeholder="Ex : Quand semer l'arachide au Sénégal ?"
-            rows="2"
-            aria-label="Votre question agricole"
-          ></textarea>
-          <button type="submit" class="assistant-envoyer" id="assistant-envoyer">Envoyer</button>
-        </form>
-
-        <p class="assistant-promo" id="assistant-promo">
-          🔓 Réponses gratuites ici ·
-          <a href="inscription.html">Inscrivez-vous</a> pour l'assistant IA avancé illimité dans votre espace membre.
-        </p>
+      </div>
+      <div class="temoignage">
+        <div class="etoiles">★★★★★</div>
+        <p class="temoignage-texte">Le paiement via Wave était simple et immédiat. J'ai eu accès à tout le contenu en moins de 5 minutes. Excellent service.</p>
+        <div class="temoignage-auteur">
+          <div class="temoignage-avatar">👨‍🌾</div>
+          <div>
+            <div class="temoignage-nom">Ibrahima Ndiaye</div>
+            <div class="temoignage-lieu">Producteur · Ziguinchor</div>
+          </div>
+        </div>
+      </div>
+      <div class="temoignage">
+        <div class="etoiles">★★★★★</div>
+        <p class="temoignage-texte">J'ai trouvé un fournisseur d'engrais de qualité près de chez moi grâce à l'annuaire. Je recommande WeurFarme à tous mes voisins.</p>
+        <div class="temoignage-auteur">
+          <div class="temoignage-avatar">👨‍🌾</div>
+          <div>
+            <div class="temoignage-nom">Ousmane Faye</div>
+            <div class="temoignage-lieu">Agriculteur · Diourbel</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="confiance" aria-label="Chiffres clés">
-    <p>Rejoint des agriculteurs qui produisent mieux, chaque saison</p>
+  <!-- ASSISTANT IA -->
+  <section class="section-assistant" id="assistant">
+    <p class="section-label">Essaie gratuitement</p>
+    <h2 class="section-titre">Pose ta question<br />à notre expert agricole IA</h2>
+    <p style="text-align:center;font-size:0.88rem;color:var(--texte-doux);margin-bottom:24px;">3 questions gratuites sans inscription · Réponses en quelques secondes</p>
+
+    <div class="chatbox">
+      <div class="chatbox-entete">
+        <div class="chatbox-avatar">🌾</div>
+        <div class="chatbox-entete-info">
+          <h3>Mamadou — Expert WeurFarme</h3>
+          <p><span class="chat-point"></span>En ligne · Répond en moins de 10 secondes</p>
+        </div>
+      </div>
+      <div class="chatbox-messages" id="pub-messages">
+        <div class="pub-msg expert">
+          <div class="pub-msg-avatar">🌾</div>
+          <div class="pub-msg-bulle">Bonjour ! 🌱 Je suis Mamadou, expert agricole de WeurFarme. Posez-moi votre question sur vos cultures, maladies, engrais ou techniques agricoles !</div>
+        </div>
+      </div>
+      <div class="pub-frappe" id="pub-frappe">
+        <div class="pub-frappe-pts"><i></i><i></i><i></i></div>
+        <span>Mamadou rédige une réponse...</span>
+      </div>
+      <div class="chatbox-saisie">
+        <input type="text" class="chatbox-input" id="pub-input"
+               placeholder="Ex: Comment traiter la cercosporiose ?"
+               onkeydown="if(event.key==='Enter') envoyerPublic()" />
+        <button class="chatbox-envoyer" id="pub-btn" onclick="envoyerPublic()" aria-label="Envoyer">➤</button>
+      </div>
+    </div>
+    <div class="chatbox-note">
+      🔓 3 questions gratuites · <a href="inscription.html">S'inscrire pour un accès illimité →</a>
+    </div>
+  </section>
+
+  <!-- SECTION PRIX -->
+  <section class="section-prix">
+    <p class="section-label">Tarification simple</p>
+    <h2 class="section-titre">Un seul plan.<br />Tout inclus.</h2>
+    <div class="prix-carte">
+      <div class="prix-badge">⭐ Offre complète</div>
+      <div class="prix-montant">1 000 <span>FCFA</span></div>
+      <div class="prix-periode">par an · soit moins de 3 FCFA/jour</div>
+      <ul class="prix-features">
+        <li>500+ fiches techniques agricoles</li>
+        <li>Expert IA disponible 24h/24</li>
+        <li>Annuaire fournisseurs vérifié</li>
+        <li>Maladies et protection des cultures</li>
+        <li>Mises à jour régulières du contenu</li>
+        <li>Support via WhatsApp</li>
+      </ul>
+      <a href="inscription.html" class="btn-prix">Commencer maintenant →</a>
+      <p class="prix-garantie">✓ Paiement sécurisé Wave / Orange Money / Carte bancaire</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <p class="section-label">Questions fréquentes</p>
+    <h2 class="section-titre">Tout ce que tu veux savoir</h2>
+    <div class="faq-liste">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Comment accéder à la plateforme depuis mon téléphone ?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-reponse">WeurFarme fonctionne directement dans votre navigateur web (Chrome, Firefox). Il suffit d'ouvrir le lien sur votre téléphone, aucune application à installer.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Est-ce que je peux payer avec Wave ou Orange Money ?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-reponse">Oui ! Nous acceptons Wave, Orange Money, Free Money et les cartes bancaires (Visa/Mastercard). Votre accès est activé immédiatement après le paiement.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Est-ce disponible dans toutes les régions du Sénégal ?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-reponse">Oui, WeurFarme couvre les 14 régions du Sénégal. Le contenu est adapté aux spécificités de chaque zone climatique et agricole.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Que se passe-t-il si je n'ai pas d'email ?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-reponse">Aucun problème ! Vous pouvez vous inscrire uniquement avec votre numéro de téléphone. L'email est optionnel sur WeurFarme.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          L'expert IA parle-t-il wolof ou pular ?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-reponse">Pour l'instant, l'expert IA répond en français. Le support du wolof et du pular est prévu dans une prochaine mise à jour.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIANCE -->
+  <section class="confiance">
+    <p>Rejoins des milliers d'agriculteurs qui produisent mieux, chaque saison</p>
     <div class="stats">
-      <div class="stat">
-        <span class="stat-chiffre">500+</span>
-        <span class="stat-label">fiches techniques</span>
-      </div>
-      <div class="stat">
-        <span class="stat-chiffre">14</span>
-        <span class="stat-label">régions couvertes</span>
-      </div>
-      <div class="stat">
-        <span class="stat-chiffre">1 000<br/><small style="font-size:0.7rem">FCFA</small></span>
-        <span class="stat-label">par an seulement</span>
-      </div>
+      <div class="stat"><span class="stat-chiffre" data-target="500">0</span><span style="font-family:'Nunito';font-weight:900;font-size:2rem;color:var(--vert)">+</span><span class="stat-label">fiches techniques</span></div>
+      <div class="stat"><span class="stat-chiffre" data-target="14">0</span><span class="stat-label">régions couvertes</span></div>
+      <div class="stat"><span class="stat-chiffre" data-target="1200">0</span><span style="font-family:'Nunito';font-weight:900;font-size:2rem;color:var(--vert)">+</span><span class="stat-label">agriculteurs membres</span></div>
     </div>
   </section>
 
-  <section class="cta-bas" id="inscription" aria-labelledby="cta-titre">
-    <h2 id="cta-titre">Prêt à mieux cultiver<br />cette saison ?</h2>
-    <p>Inscription en 2 minutes · Paiement via Wave ou Orange Money</p>
-    <a href="inscription.html" class="btn-principal">
-      S'inscrire maintenant →
-    </a>
+  <!-- CTA BAS -->
+  <section class="cta-bas">
+    <h2>Prêt à transformer<br />ta saison agricole ?</h2>
+    <p>Rejoins 1 200+ agriculteurs sénégalais qui cultivent mieux grâce à WeurFarme</p>
+    <a href="inscription.html" class="btn-principal">🚀 S'inscrire maintenant — 1 000 FCFA/an</a>
+    <div class="cta-bas-paiements">
+      <div class="badge-paiement">🌊 Wave</div>
+      <div class="badge-paiement">🟠 Orange Money</div>
+      <div class="badge-paiement">🟢 Free Money</div>
+      <div class="badge-paiement">💳 Carte bancaire</div>
+    </div>
   </section>
 
+  <!-- WHATSAPP FLOTTANT -->
+  <a href="https://wa.me/221781234567?text=Bonjour%20WeurFarme%2C%20j'ai%20une%20question"
+     class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Contacter via WhatsApp">
+    💬
+  </a>
+
+  <!-- FOOTER -->
   <footer>
-    <p>
-      © 2025 WeurFarme · AgriSavoir Sénégal ·
-      <a href="mailto:contact@weurfarme.sn">contact@weurfarme.sn</a>
-    </p>
+    <div class="footer-liens">
+      <a href="index.html">Accueil</a>
+      <a href="inscription.html">S'inscrire</a>
+      <a href="#assistant">Assistant IA</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:contact@weurfarme.sn">Contact</a>
+    </div>
+    <p>© 2025 WeurFarme · AgriSavoir Sénégal · <a href="mailto:contact@weurfarme.sn" style="color:var(--vert-clair)">contact@weurfarme.sn</a></p>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initAssistant({ mode: 'public' });
-    });
-  </script>
+    /* ══ GEMINI IA (via fonction Netlify – clé côté serveur) ══ */
+    const SYSTEME = "Tu es Mamadou Diop, expert agricole sénégalais de WeurFarme avec 30 ans d'expérience. Réponds en français simple et pratique (2-3 phrases max). Tu connais toutes les cultures locales : arachide, mil, maïs, gombo, niébé, riz. Sois chaleureux, utilise des emojis agricoles. Encourage discrètement à s'inscrire sur WeurFarme pour les fiches complètes.";
+    const histo = [];
+    let nbQ = 0;
 
-</body>
-</html>
+    function scrollBas() {
+      const z = document.getElementById('pub-messages');
+      setTimeout(() => { z.scrollTop = z.scrollHeight; }, 50);
+    }
 
-    <p>
-      © 2025 WeurFarme · AgriSavoir Sénégal ·
-      <a href="mailto:contact@weurfarme.sn">contact@weurfarme.sn</a>
-    </p>
-  </footer>
+    function ajouterMsg(texte, type) {
+      const zone = document.getElementById('pub-messages');
+      const div = document.createElement('div');
+      div.className = `pub-msg ${type}`;
+      div.innerHTML = `<div class="pub-msg-avatar">${type === 'expert' ? '🌾' : '👤'}</div><div class="pub-msg-bulle">${texte}</div>`;
+      zone.appendChild(div);
+      scrollBas();
+    }
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initAssistant({ mode: 'public' });
-    });
+    async function envoyerPublic() {
+      const input = document.getElementById('pub-input');
+      const btn = document.getElementById('pub-btn');
+      const frappe = document.getElementById('pub-frappe');
+      const texte = input.value.trim();
+      if (!texte || btn.disabled) return;
+
+      if (nbQ >= 3) {
+        ajouterMsg('Vous avez utilisé vos 3 questions gratuites ! 🌱 <a href="inscription.html" style="color:var(--vert);font-weight:700">Inscrivez-vous pour un accès illimité →</a>', 'expert');
+        input.disabled = true;
+        btn.disabled = true;
+        return;
+      }
+
+      nbQ++;
+      ajouterMsg(texte, 'user');
+      input.value = '';
+      btn.disabled = true;
+      frappe.classList.add('visible');
+      scrollBas();
+
+      histo.push({ role: 'user', content: texte });
+
+      try {
+        const res = await fetch('/.netlify/functions/ask-gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system: SYSTEME,
+            messages: histo,
+          }),
+        });
+
+        const data = await res.json();
+        const rep = data.reply || "Désolé, une erreur est survenue. Réessaie !";
+        histo.push({ role: 'assistant', content: rep });
+        frappe.classList.remove('visible');
+        ajouterMsg(rep.replace(/\n/g, '<br/>'), 'expert');
+
+        if (nbQ >= 3) {
+          setTimeout(() => {
+            ajouterMsg('🌟 Vous avez utilisé vos 3 questions gratuites. <a href="inscription.html" style="color:var(--vert);font-weight:700">Inscrivez-vous pour un accès illimité →</a>', 'expert');
+            input.disabled = true;
+            btn.disabled = true;
+          }, 800);
+        }
+      } catch(e) {
+        frappe.classList.remove('visible');
+        ajouterMsg('❌ Erreur de connexion. Réessaie dans quelques instants.', 'expert');
+        btn.disabled = false;
+      } finally {
+        if (nbQ < 3) {
+          btn.disabled = false;
+          input.focus();
+        }
+      }
+    }
+
+    /* ══ FAQ ACCORDION ══ */
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const estOuvert = item.classList.contains('ouvert');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('ouvert'));
+      if (!estOuvert) item.classList.add('ouvert');
+    }
+
+    /* ══ COMPTEUR ANIMÉ ══ */
+    function animerCompteurs() {
+      document.querySelectorAll('.stat-chiffre[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const duree = 1800;
+        const debut = performance.now();
+        function maj(now) {
+          const prog = Math.min((now - debut) / duree, 1);
+          const ease = 1 - Math.pow(1 - prog, 3);
+          el.textContent = Math.floor(ease * target);
+          if (prog < 1) requestAnimationFrame(maj);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(maj);
+      });
+    }
+
+    /* Observer pour déclencher le compteur quand visible */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { animerCompteurs(); observer.disconnect(); } });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.querySelector('.confiance');
+    if (statsSection) observer.observe(statsSection);
+
+    /* ══ SCROLL INITIAL DU CHAT ══ */
+    scrollBas();
   </script>
 
 </body>
