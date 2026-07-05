@@ -1,6 +1,6 @@
 /**
  * Génère config.js au déploiement Netlify à partir des variables d'environnement.
- * À configurer dans Netlify : Site settings → Environment variables
+ * À la racine du projet pour faciliter l'upload sur GitHub.
  */
 const fs = require('fs');
 const path = require('path');
@@ -23,5 +23,5 @@ const SUPABASE_ANON_KEY = '${key}';
 const AI_ASSISTANT_FUNCTION = 'ask-assistant';
 `;
 
-fs.writeFileSync(path.join(__dirname, '..', 'config.js'), contenu, 'utf8');
+fs.writeFileSync(path.join(__dirname, 'config.js'), contenu, 'utf8');
 console.log('✅ config.js généré pour le déploiement.');
