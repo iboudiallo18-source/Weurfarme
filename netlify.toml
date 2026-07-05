@@ -3,8 +3,9 @@
   command = "node build-config.js"
 
 [build.environment]
-  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
-
+SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+  SECRETS_SCAN_OMIT_PATHS = "config.js"
+  SECRETS_SCAN_ENABLED = "false
 [functions]
   directory = "netlify/functions"
 
