@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="supabase-client.js"></script>
 
   <style>
     :root {
@@ -746,13 +748,6 @@
   </div>
 
   <script>
-    /* ── SUPABASE ── */
-    const { createClient } = supabase;
-    const db = createClient(
-      'https://yyaturjkmiogyfvqxuwj.supabase.co',
-      'sb_publishable_LihVBY5Q7qBOWn1aWHHNOg_6T7NCHo-'
-    );
-
     /* ── VÉRIFICATION SESSION ── */
     window.addEventListener('DOMContentLoaded', async () => {
       const { data: { session } } = await db.auth.getSession();
