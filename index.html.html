@@ -831,8 +831,7 @@
   </footer>
 
   <script>
-    /* ══ GEMINI IA ══ */
-    const GEMINI_KEY = 'AIzaSyAb8RN6LYXE3xWBS9n8uoaI6XHLUZxJKiaiTrDhjJ2F4XIrZXOw';
+    /* ══ GEMINI IA (via fonction Netlify – clé côté serveur) ══ */
     const SYSTEME = "Tu es Mamadou Diop, expert agricole sénégalais de WeurFarme avec 30 ans d'expérience. Réponds en français simple et pratique (2-3 phrases max). Tu connais toutes les cultures locales : arachide, mil, maïs, gombo, niébé, riz. Sois chaleureux, utilise des emojis agricoles. Encourage discrètement à s'inscrire sur WeurFarme pour les fiches complètes.";
     const histo = [];
     let nbQ = 0;
@@ -875,25 +874,17 @@
       histo.push({ role: 'user', content: texte });
 
       try {
-        const msgs = histo.map(m => ({
-          role: m.role === 'assistant' ? 'model' : 'user',
-          parts: [{ text: m.content }]
-        }));
-
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              system_instruction: { parts: [{ text: SYSTEME }] },
-              contents: msgs
-            })
-          }
-        );
+        const res = await fetch('/.netlify/functions/ask-gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system: SYSTEME,
+            messages: histo,
+          }),
+        });
 
         const data = await res.json();
-        const rep = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, une erreur est survenue. Réessaie !";
+        const rep = data.reply || "Désolé, une erreur est survenue. Réessaie !";
         histo.push({ role: 'assistant', content: rep });
         frappe.classList.remove('visible');
         ajouterMsg(rep.replace(/\n/g, '<br/>'), 'expert');
