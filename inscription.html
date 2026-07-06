@@ -7,18 +7,95 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/inscription.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="js/supabase-client.js"></script>
+  <style>
+    :root {
+      --vert: #2E7D32; --vert-fonce: #1B5E20; --vert-clair: #81C784;
+      --vert-pale: #E8F5E9; --or: #F9A825; --blanc: #FAFAF7;
+      --texte: #1A2E1B; --texte-doux: #4A6741; --rouge: #C62828; --rayon: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--blanc); color: var(--texte); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* HEADER */
+    header { background: var(--vert); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icone { width: 34px; height: 34px; flex-shrink: 0; }
+    .logo-texte { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.35rem; line-height: 1; }
+    .logo-texte span:first-child { color: #fff; }
+    .logo-texte span:last-child { color: var(--or); }
+    .nav-lien { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.85); text-decoration: none; }
+    .nav-lien:hover { color: #fff; }
+
+    /* MAIN */
+    main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 20px 60px; }
+    .form-header { text-align: center; max-width: 440px; margin-bottom: 32px; }
+    .form-badge { display: inline-block; background: var(--vert-pale); color: var(--vert); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 50px; margin-bottom: 14px; }
+    .form-header h1 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(1.5rem, 5vw, 2rem); color: var(--texte); line-height: 1.2; margin-bottom: 10px; }
+    .form-header p { font-size: 0.92rem; color: var(--texte-doux); }
+
+    /* CARTE */
+    .carte-form { background: #fff; border: 1.5px solid var(--vert-pale); border-radius: var(--rayon); padding: 32px 28px; box-shadow: 0 4px 24px rgba(46,125,50,0.10); width: 100%; max-width: 440px; }
+
+    /* ONGLETS */
+    .tabs { display: flex; background: var(--vert-pale); border-radius: 50px; padding: 4px; margin-bottom: 28px; gap: 4px; }
+    .tab-btn { flex: 1; padding: 9px; border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: transparent; color: var(--texte-doux); transition: background 0.2s, color 0.2s; }
+    .tab-btn.actif { background: var(--vert); color: #fff; box-shadow: 0 2px 8px rgba(46,125,50,0.25); }
+
+    /* CHAMPS */
+    .champ { margin-bottom: 20px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 6px; }
+    label .requis { color: var(--vert); margin-left: 2px; }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="password"] { width: 100%; padding: 13px 16px; border: 1.5px solid #C8E6C9; border-radius: 10px; font-family: 'Open Sans', sans-serif; font-size: 1rem; color: var(--texte); background: #fff; transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none; }
+    input:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(46,125,50,0.12); }
+    input::placeholder { color: #9E9E9E; }
+    input.erreur { border-color: var(--rouge); }
+    .msg-erreur { display: none; font-size: 0.8rem; color: var(--rouge); margin-top: 5px; }
+    input.erreur ~ .msg-erreur { display: block; }
+    .aide { font-size: 0.78rem; color: var(--texte-doux); margin-top: 5px; }
+
+    /* TEL */
+    .champ-tel { display: flex; gap: 8px; }
+    .prefixe { display: flex; align-items: center; padding: 13px 12px; background: var(--vert-pale); border: 1.5px solid #C8E6C9; border-radius: 10px; font-weight: 600; font-size: 0.95rem; color: var(--vert-fonce); white-space: nowrap; flex-shrink: 0; }
+    .champ-tel input { flex: 1; }
+
+    /* BOUTON */
+    .btn-action { width: 100%; padding: 16px; background: var(--or); color: var(--vert-fonce); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.05rem; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 18px rgba(249,168,37,0.40); transition: transform 0.15s, box-shadow 0.15s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-action:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(249,168,37,0.55); }
+    .btn-action:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(27,94,32,0.3); border-top-color: var(--vert-fonce); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* INFO PAIEMENT */
+    .info-paiement { background: var(--vert-pale); border-radius: 12px; padding: 16px; margin-top: 20px; display: flex; gap: 12px; align-items: flex-start; }
+    .info-paiement .icone { font-size: 1.4rem; flex-shrink: 0; }
+    .info-paiement p { font-size: 0.82rem; color: var(--texte-doux); line-height: 1.5; }
+    .info-paiement strong { color: var(--vert-fonce); }
+
+    /* LIENS */
+    .liens-bas { text-align: center; margin-top: 22px; font-size: 0.85rem; color: var(--texte-doux); }
+    .liens-bas a { color: var(--vert); font-weight: 600; text-decoration: none; }
+
+    /* ALERTE */
+    .alerte { display: none; padding: 14px 18px; border-radius: 12px; font-size: 0.88rem; margin-bottom: 20px; font-weight: 600; line-height: 1.5; }
+    .alerte.succes { background: #E8F5E9; color: var(--vert-fonce); border: 1px solid var(--vert-clair); }
+    .alerte.erreur-globale { background: #FFEBEE; color: var(--rouge); border: 1px solid #EF9A9A; }
+
+    /* FOOTER */
+    footer { background: var(--vert-fonce); padding: 18px 20px; text-align: center; }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+    footer a { color: var(--vert-clair); text-decoration: none; }
+
+    #panneau-connexion { display: none; }
+  </style>
 </head>
+<body>
 
-<body class="page-app">
-
+  <!-- HEADER : UNE SEULE FOIS -->
   <header>
     <a href="index.html" class="logo">
-      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="19" cy="19" r="19" fill="rgba(255,255,255,0.12)"/>
         <path d="M19 30 C19 30 9 22 9 15 C9 10.03 13.48 6 19 6 C24.52 6 29 10.03 29 15 C29 22 19 30 19 30Z" fill="#81C784"/>
         <path d="M19 30 L19 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
@@ -30,6 +107,7 @@
     <a href="index.html" class="nav-lien">← Accueil</a>
   </header>
 
+  <!-- MAIN -->
   <main>
     <div class="form-header">
       <div class="form-badge">🌱 Inscription rapide</div>
@@ -38,152 +116,126 @@
     </div>
 
     <div class="carte-form">
-
       <div class="tabs" role="tablist">
-        <button class="tab-btn actif" id="tab-inscription" role="tab" aria-selected="true"
-                onclick="basculerOnglet('inscription')">S'inscrire</button>
-        <button class="tab-btn" id="tab-connexion" role="tab" aria-selected="false"
-                onclick="basculerOnglet('connexion')">Se connecter</button>
+        <button class="tab-btn actif" id="tab-inscription" onclick="basculerOnglet('inscription')">S'inscrire</button>
+        <button class="tab-btn" id="tab-connexion" onclick="basculerOnglet('connexion')">Se connecter</button>
       </div>
 
       <div class="alerte" id="alerte" role="alert" aria-live="polite"></div>
 
-      <!-- ── PANNEAU INSCRIPTION ── -->
+      <!-- PANNEAU INSCRIPTION -->
       <div id="panneau-inscription">
-
         <div class="champ">
           <label for="prenom">Prénom <span class="requis">*</span></label>
           <input type="text" id="prenom" placeholder="Ex : Mamadou" autocomplete="given-name" />
           <span class="msg-erreur">Merci d'entrer ton prénom.</span>
         </div>
-
         <div class="champ">
           <label for="nom">Nom <span class="requis">*</span></label>
           <input type="text" id="nom" placeholder="Ex : Diallo" autocomplete="family-name" />
           <span class="msg-erreur">Merci d'entrer ton nom.</span>
         </div>
-
         <div class="champ">
           <label for="telephone">Téléphone <span class="requis">*</span></label>
           <div class="champ-tel">
             <span class="prefixe">🇸🇳 +221</span>
-            <input type="tel" id="telephone" placeholder="77 000 00 00"
-                   maxlength="12" inputmode="tel" autocomplete="tel-national" />
+            <input type="tel" id="telephone" placeholder="77 000 00 00" maxlength="12" inputmode="tel" autocomplete="tel-national" />
           </div>
           <span class="msg-erreur">Saisis un numéro valide (9 chiffres).</span>
         </div>
-
         <div class="champ">
           <label for="email">Email <span style="color:#9E9E9E;font-weight:400">(optionnel)</span></label>
           <input type="email" id="email" placeholder="exemple@gmail.com" autocomplete="email" />
           <span class="msg-erreur">Adresse email invalide.</span>
         </div>
-
         <div class="champ">
           <label for="mdp">Mot de passe <span class="requis">*</span></label>
           <input type="password" id="mdp" placeholder="Minimum 8 caractères" autocomplete="new-password" />
-          <p class="aide">Au moins 8 caractères. Tu en auras besoin pour te reconnecter.</p>
+          <p class="aide">Au moins 8 caractères.</p>
           <span class="msg-erreur">Le mot de passe doit contenir au moins 8 caractères.</span>
         </div>
-
         <button class="btn-action" id="btn-inscription" onclick="soumettreInscription()">
           <span class="spinner" id="spinner-inscription"></span>
           <span id="texte-btn-inscription">Créer mon compte &amp; Payer 1 000 FCFA →</span>
         </button>
-
         <div class="info-paiement">
           <span class="icone">📱</span>
-          <p>Paiement sécurisé via <strong>Wave</strong> ou <strong>Orange Money</strong>. Ton accès est activé immédiatement après confirmation.</p>
+          <p>Paiement sécurisé via <strong>Wave</strong> ou <strong>Orange Money</strong>. Accès activé immédiatement.</p>
         </div>
-
         <div class="liens-bas">
           Déjà inscrit ? <a href="#" onclick="basculerOnglet('connexion'); return false;">Se connecter</a>
         </div>
-
       </div>
 
-      <!-- ── PANNEAU CONNEXION ── -->
+      <!-- PANNEAU CONNEXION -->
       <div id="panneau-connexion">
-
         <div class="champ">
           <label for="login-email">Email ou téléphone <span class="requis">*</span></label>
-          <input type="text" id="login-email" placeholder="email ou +221..." autocomplete="username" />
+          <input type="text" id="login-email" placeholder="+221 77... ou email" autocomplete="username" />
           <span class="msg-erreur">Ce champ est requis.</span>
         </div>
-
         <div class="champ">
           <label for="login-mdp">Mot de passe <span class="requis">*</span></label>
           <input type="password" id="login-mdp" placeholder="Ton mot de passe" autocomplete="current-password" />
           <span class="msg-erreur">Le mot de passe est requis.</span>
         </div>
-
         <button class="btn-action" id="btn-connexion" onclick="soumettreConnexion()">
           <span class="spinner" id="spinner-connexion"></span>
           <span id="texte-btn-connexion">Se connecter →</span>
         </button>
-
         <div class="liens-bas" style="margin-top:18px">
           Pas encore de compte ? <a href="#" onclick="basculerOnglet('inscription'); return false;">S'inscrire</a>
         </div>
-
       </div>
-
     </div>
   </main>
 
+  <!-- FOOTER : UNE SEULE FOIS -->
   <footer>
     <p>© 2025 WeurFarme · <a href="index.html">Accueil</a> · <a href="mailto:contact@weurfarme.sn">Contact</a></p>
   </footer>
 
   <script>
-    /* ══════════════════════════════════════════════════
-       BASCULE D'ONGLETS
-    ══════════════════════════════════════════════════ */
-    function basculerOnglet(onglet) {
-      document.getElementById('panneau-inscription').style.display =
-        onglet === 'inscription' ? 'block' : 'none';
-      document.getElementById('panneau-connexion').style.display =
-        onglet === 'connexion' ? 'block' : 'none';
+    /* SUPABASE — clés intégrées directement */
+    const { createClient } = supabase;
+    const db = createClient(
+      'https://yyaturjkmiogyfvqxuwj.supabase.co',
+      'sb_publishable_LihVBY5Q7qBOWn1aWHHNOg_6T7NCHo-'
+    );
 
+    /* ONGLETS */
+    function basculerOnglet(onglet) {
+      document.getElementById('panneau-inscription').style.display = onglet === 'inscription' ? 'block' : 'none';
+      document.getElementById('panneau-connexion').style.display = onglet === 'connexion' ? 'block' : 'none';
       document.getElementById('tab-inscription').classList.toggle('actif', onglet === 'inscription');
       document.getElementById('tab-connexion').classList.toggle('actif', onglet === 'connexion');
-      document.getElementById('tab-inscription').setAttribute('aria-selected', onglet === 'inscription');
-      document.getElementById('tab-connexion').setAttribute('aria-selected', onglet === 'connexion');
-
       cacherAlerte();
     }
 
-    /* ══════════════════════════════════════════════════
-       VALIDATION
-    ══════════════════════════════════════════════════ */
+    /* VALIDATION */
     function validerChamp(input) {
       const ok = input.value.trim() !== '';
       input.classList.toggle('erreur', !ok);
       return ok;
     }
-
     function validerEmail(input) {
       if (input.value.trim() === '') { input.classList.remove('erreur'); return true; }
       const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
       input.classList.toggle('erreur', !ok);
       return ok;
     }
-
     function validerTel(input) {
       const ok = /^[0-9]{9}$/.test(input.value.replace(/\s/g, ''));
       input.classList.toggle('erreur', !ok);
       return ok;
     }
-
     function validerMdp(input) {
       const ok = input.value.length >= 8;
       input.classList.toggle('erreur', !ok);
       return ok;
     }
 
-    /* ══════════════════════════════════════════════════
-       ALERTES
-    ══════════════════════════════════════════════════ */
+    /* ALERTES */
     function afficherAlerte(msg, type) {
       const el = document.getElementById('alerte');
       el.innerHTML = msg;
@@ -191,119 +243,72 @@
       el.style.display = 'block';
       el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-
     function cacherAlerte() {
-      const el = document.getElementById('alerte');
-      el.style.display = 'none';
+      document.getElementById('alerte').style.display = 'none';
     }
 
-    /* ══════════════════════════════════════════════════
-       CHARGEMENT BOUTON
-    ══════════════════════════════════════════════════ */
+    /* CHARGEMENT */
     function setChargement(btnId, spinnerId, texteId, actif) {
-      document.getElementById(btnId).disabled           = actif;
-      document.getElementById(spinnerId).style.display  = actif ? 'block' : 'none';
+      document.getElementById(btnId).disabled = actif;
+      document.getElementById(spinnerId).style.display = actif ? 'block' : 'none';
       document.getElementById(texteId).style.visibility = actif ? 'hidden' : 'visible';
     }
 
-    /* ══════════════════════════════════════════════════
-       INSCRIPTION RÉELLE — SUPABASE AUTH
-    ══════════════════════════════════════════════════ */
+    /* INSCRIPTION */
     async function soumettreInscription() {
       const prenom = document.getElementById('prenom');
-      const nom    = document.getElementById('nom');
-      const tel    = document.getElementById('telephone');
-      const email  = document.getElementById('email');
-      const mdp    = document.getElementById('mdp');
+      const nom = document.getElementById('nom');
+      const tel = document.getElementById('telephone');
+      const email = document.getElementById('email');
+      const mdp = document.getElementById('mdp');
 
-      // Validation locale
-      const ok = [
-        validerChamp(prenom),
-        validerChamp(nom),
-        validerTel(tel),
-        validerEmail(email),
-        validerMdp(mdp)
-      ].every(Boolean);
-
-      if (!ok) {
-        afficherAlerte('⚠️ Vérifie les champs en rouge avant de continuer.', 'erreur-globale');
-        return;
-      }
+      const ok = [validerChamp(prenom), validerChamp(nom), validerTel(tel), validerEmail(email), validerMdp(mdp)].every(Boolean);
+      if (!ok) { afficherAlerte('⚠️ Vérifie les champs en rouge.', 'erreur-globale'); return; }
 
       setChargement('btn-inscription', 'spinner-inscription', 'texte-btn-inscription', true);
       cacherAlerte();
 
       try {
-        /* ── Construire l'email de connexion ───────────────────────────
-           Si l'utilisateur n'a pas d'email, on crée un email fictif
-           unique basé sur son numéro → il pourra se connecter avec ça
-        ──────────────────────────────────────────────────────────────── */
         const numeroNettoye = tel.value.replace(/\s/g, '');
-        const emailConnexion = email.value.trim() !== ''
-          ? email.value.trim()
-          : `${numeroNettoye}@weurfarme.sn`;
+        const emailConnexion = email.value.trim() !== '' ? email.value.trim() : `${numeroNettoye}@weurfarme.sn`;
 
-        /* ── Appel Supabase Auth ──────────────────────────────────────── */
         const { data, error } = await db.auth.signUp({
-          email:    emailConnexion,
+          email: emailConnexion,
           password: mdp.value,
           options: {
             data: {
-              prenom:    prenom.value.trim(),
-              nom:       nom.value.trim(),
+              prenom: prenom.value.trim(),
+              nom: nom.value.trim(),
               telephone: '+221' + numeroNettoye,
-              abonne:    false   // sera mis à true après paiement
+              abonne: false
             }
           }
         });
 
-        if (error) {
-          // Traduction des erreurs Supabase en français
-          const msg = traduireErreur(error.message);
-          afficherAlerte('❌ ' + msg, 'erreur-globale');
-          return;
-        }
+        if (error) { afficherAlerte('❌ ' + traduireErreur(error.message), 'erreur-globale'); return; }
 
-        /* ── Succès : l'utilisateur est créé ─────────────────────────── */
-        afficherAlerte(
-          '✅ <strong>Compte créé avec succès !</strong><br/>' +
-          'Tu vas être redirigé vers le paiement dans 2 secondes…',
-          'succes'
-        );
-
-        // Redirige vers la page paiement après 2s
-        setTimeout(() => {
-          window.location.href = 'paiement.html';
-        }, 2000);
+        afficherAlerte('✅ <strong>Compte créé !</strong> Redirection vers le paiement...', 'succes');
+        setTimeout(() => { window.location.href = 'paiement.html'; }, 2000);
 
       } catch (err) {
-        console.error('Erreur inscription:', err);
         afficherAlerte('❌ Une erreur inattendue est survenue. Réessaie.', 'erreur-globale');
       } finally {
         setChargement('btn-inscription', 'spinner-inscription', 'texte-btn-inscription', false);
       }
     }
 
-    /* ══════════════════════════════════════════════════
-       CONNEXION RÉELLE — SUPABASE AUTH
-    ══════════════════════════════════════════════════ */
+    /* CONNEXION */
     async function soumettreConnexion() {
       const loginEmail = document.getElementById('login-email');
-      const loginMdp   = document.getElementById('login-mdp');
+      const loginMdp = document.getElementById('login-mdp');
 
       const ok = [validerChamp(loginEmail), validerChamp(loginMdp)].every(Boolean);
-      if (!ok) {
-        afficherAlerte('⚠️ Remplis tous les champs.', 'erreur-globale');
-        return;
-      }
+      if (!ok) { afficherAlerte('⚠️ Remplis tous les champs.', 'erreur-globale'); return; }
 
       setChargement('btn-connexion', 'spinner-connexion', 'texte-btn-connexion', true);
       cacherAlerte();
 
       try {
-        /* ── Détecter si c'est un numéro de téléphone ─────────────────
-           Si l'utilisateur saisit son numéro, on reconstruit l'email fictif
-        ──────────────────────────────────────────────────────────────── */
         let emailConnexion = loginEmail.value.trim();
         if (/^[0-9\s+]+$/.test(emailConnexion)) {
           const num = emailConnexion.replace(/[\s+]/g, '').replace(/^221/, '');
@@ -311,431 +316,45 @@
         }
 
         const { data, error } = await db.auth.signInWithPassword({
-          email:    emailConnexion,
-          password: loginMdp.value,
+          email: emailConnexion,
+          password: loginMdp.value
         });
 
-        if (error) {
-          afficherAlerte('❌ ' + traduireErreur(error.message), 'erreur-globale');
-          return;
-        }
+        if (error) { afficherAlerte('❌ ' + traduireErreur(error.message), 'erreur-globale'); return; }
 
-        /* ── Succès : vérifier si l'utilisateur est abonné ───────────── */
-        afficherAlerte('✅ Connexion réussie ! Redirection…', 'succes');
-
+        afficherAlerte('✅ Connexion réussie ! Redirection...', 'succes');
         const meta = data.user?.user_metadata || {};
-        if (meta.abonne === true) {
-          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
-        } else {
-          // Compte créé mais pas encore payé → vers paiement
-          setTimeout(() => { window.location.href = 'paiement.html'; }, 1200);
-        }
-
-      } catch (err) {
-        console.error('Erreur connexion:', err);
-        afficherAlerte('❌ Une erreur inattendue est survenue.', 'erreur-globale');
-      } finally {
-        setChargement('btn-connexion', 'spinner-connexion', 'texte-btn-connexion', false);
-      }
-    }
-
-    /* ══════════════════════════════════════════════════
-       TRADUCTION ERREURS SUPABASE → FRANÇAIS
-    ══════════════════════════════════════════════════ */
-    function traduireErreur(msg) {
-      const erreurs = {
-        'User already registered':              'Un compte existe déjà avec cet email ou ce numéro.',
-        'Invalid login credentials':            'Email/numéro ou mot de passe incorrect.',
-        'Email not confirmed':                  'Confirme ton email avant de te connecter.',
-        'Password should be at least 6 characters': 'Le mot de passe doit avoir au moins 8 caractères.',
-        'Unable to validate email address':     'Adresse email invalide.',
-        'signup_disabled':                      'Les inscriptions sont temporairement désactivées.',
-        'too_many_requests':                    'Trop de tentatives. Attends quelques minutes.',
-      };
-      for (const [cle, valeur] of Object.entries(erreurs)) {
-        if (msg.toLowerCase().includes(cle.toLowerCase())) return valeur;
-      }
-      return msg; // fallback : message brut
-    }
-
-    /* ══════════════════════════════════════════════════
-       FORMATAGE TÉLÉPHONE EN TEMPS RÉEL
-    ══════════════════════════════════════════════════ */
-    document.getElementById('telephone').addEventListener('input', function () {
-      this.value = this.value.replace(/[^0-9\s]/g, '');
-    });
-  </script>
-  <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S'inscrire – WeurFarme</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="inscription.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="supabase-client.js"></script>
-</head>
-
-<body class="page-app">
-
-  <header>
-    <a href="index.html" class="logo">
-      <svg class="logo-icone" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="19" cy="19" r="19" fill="rgba(255,255,255,0.12)"/>
-        <path d="M19 30 C19 30 9 22 9 15 C9 10.03 13.48 6 19 6 C24.52 6 29 10.03 29 15 C29 22 19 30 19 30Z" fill="#81C784"/>
-        <path d="M19 30 L19 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M19 20 C19 20 14 17 13 13" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M19 24 C19 24 23 21 24 17" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      <div class="logo-texte"><span>Weur</span><span>Farme</span></div>
-    </a>
-    <a href="index.html" class="nav-lien">← Accueil</a>
-  </header>
-
-  <main>
-    <div class="form-header">
-      <div class="form-badge">🌱 Inscription rapide</div>
-      <h1>Rejoins WeurFarme<br />aujourd'hui</h1>
-      <p>Accès illimité à toutes les fiches agricoles pour <strong>1 000 FCFA / an</strong></p>
-    </div>
-
-    <div class="carte-form">
-
-      <div class="tabs" role="tablist">
-        <button class="tab-btn actif" id="tab-inscription" role="tab" aria-selected="true"
-                onclick="basculerOnglet('inscription')">S'inscrire</button>
-        <button class="tab-btn" id="tab-connexion" role="tab" aria-selected="false"
-                onclick="basculerOnglet('connexion')">Se connecter</button>
-      </div>
-
-      <div class="alerte" id="alerte" role="alert" aria-live="polite"></div>
-
-      <!-- ── PANNEAU INSCRIPTION ── -->
-      <div id="panneau-inscription">
-
-        <div class="champ">
-          <label for="prenom">Prénom <span class="requis">*</span></label>
-          <input type="text" id="prenom" placeholder="Ex : Mamadou" autocomplete="given-name" />
-          <span class="msg-erreur">Merci d'entrer ton prénom.</span>
-        </div>
-
-        <div class="champ">
-          <label for="nom">Nom <span class="requis">*</span></label>
-          <input type="text" id="nom" placeholder="Ex : Diallo" autocomplete="family-name" />
-          <span class="msg-erreur">Merci d'entrer ton nom.</span>
-        </div>
-
-        <div class="champ">
-          <label for="telephone">Téléphone <span class="requis">*</span></label>
-          <div class="champ-tel">
-            <span class="prefixe">🇸🇳 +221</span>
-            <input type="tel" id="telephone" placeholder="77 000 00 00"
-                   maxlength="12" inputmode="tel" autocomplete="tel-national" />
-          </div>
-          <span class="msg-erreur">Saisis un numéro valide (9 chiffres).</span>
-        </div>
-
-        <div class="champ">
-          <label for="email">Email <span style="color:#9E9E9E;font-weight:400">(optionnel)</span></label>
-          <input type="email" id="email" placeholder="exemple@gmail.com" autocomplete="email" />
-          <span class="msg-erreur">Adresse email invalide.</span>
-        </div>
-
-        <div class="champ">
-          <label for="mdp">Mot de passe <span class="requis">*</span></label>
-          <input type="password" id="mdp" placeholder="Minimum 8 caractères" autocomplete="new-password" />
-          <p class="aide">Au moins 8 caractères. Tu en auras besoin pour te reconnecter.</p>
-          <span class="msg-erreur">Le mot de passe doit contenir au moins 8 caractères.</span>
-        </div>
-
-        <button class="btn-action" id="btn-inscription" onclick="soumettreInscription()">
-          <span class="spinner" id="spinner-inscription"></span>
-          <span id="texte-btn-inscription">Créer mon compte &amp; Payer 1 000 FCFA →</span>
-        </button>
-
-        <div class="info-paiement">
-          <span class="icone">📱</span>
-          <p>Paiement sécurisé via <strong>Wave</strong> ou <strong>Orange Money</strong>. Ton accès est activé immédiatement après confirmation.</p>
-        </div>
-
-        <div class="liens-bas">
-          Déjà inscrit ? <a href="#" onclick="basculerOnglet('connexion'); return false;">Se connecter</a>
-        </div>
-
-      </div>
-
-      <!-- ── PANNEAU CONNEXION ── -->
-      <div id="panneau-connexion">
-
-        <div class="champ">
-          <label for="login-email">Email ou téléphone <span class="requis">*</span></label>
-          <input type="text" id="login-email" placeholder="email ou +221..." autocomplete="username" />
-          <span class="msg-erreur">Ce champ est requis.</span>
-        </div>
-
-        <div class="champ">
-          <label for="login-mdp">Mot de passe <span class="requis">*</span></label>
-          <input type="password" id="login-mdp" placeholder="Ton mot de passe" autocomplete="current-password" />
-          <span class="msg-erreur">Le mot de passe est requis.</span>
-        </div>
-
-        <button class="btn-action" id="btn-connexion" onclick="soumettreConnexion()">
-          <span class="spinner" id="spinner-connexion"></span>
-          <span id="texte-btn-connexion">Se connecter →</span>
-        </button>
-
-        <div class="liens-bas" style="margin-top:18px">
-          Pas encore de compte ? <a href="#" onclick="basculerOnglet('inscription'); return false;">S'inscrire</a>
-        </div>
-
-      </div>
-
-    </div>
-  </main>
-
-  <footer>
-    <p>© 2025 WeurFarme · <a href="index.html">Accueil</a> · <a href="mailto:contact@weurfarme.sn">Contact</a></p>
-  </footer>
-
-  <script>
-    /* ══════════════════════════════════════════════════
-       BASCULE D'ONGLETS
-    ══════════════════════════════════════════════════ */
-    function basculerOnglet(onglet) {
-      document.getElementById('panneau-inscription').style.display =
-        onglet === 'inscription' ? 'block' : 'none';
-      document.getElementById('panneau-connexion').style.display =
-        onglet === 'connexion' ? 'block' : 'none';
-
-      document.getElementById('tab-inscription').classList.toggle('actif', onglet === 'inscription');
-      document.getElementById('tab-connexion').classList.toggle('actif', onglet === 'connexion');
-      document.getElementById('tab-inscription').setAttribute('aria-selected', onglet === 'inscription');
-      document.getElementById('tab-connexion').setAttribute('aria-selected', onglet === 'connexion');
-
-      cacherAlerte();
-    }
-
-    /* ══════════════════════════════════════════════════
-       VALIDATION
-    ══════════════════════════════════════════════════ */
-    function validerChamp(input) {
-      const ok = input.value.trim() !== '';
-      input.classList.toggle('erreur', !ok);
-      return ok;
-    }
-
-    function validerEmail(input) {
-      if (input.value.trim() === '') { input.classList.remove('erreur'); return true; }
-      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
-      input.classList.toggle('erreur', !ok);
-      return ok;
-    }
-
-    function validerTel(input) {
-      const ok = /^[0-9]{9}$/.test(input.value.replace(/\s/g, ''));
-      input.classList.toggle('erreur', !ok);
-      return ok;
-    }
-
-    function validerMdp(input) {
-      const ok = input.value.length >= 8;
-      input.classList.toggle('erreur', !ok);
-      return ok;
-    }
-
-    /* ══════════════════════════════════════════════════
-       ALERTES
-    ══════════════════════════════════════════════════ */
-    function afficherAlerte(msg, type) {
-      const el = document.getElementById('alerte');
-      el.innerHTML = msg;
-      el.className = 'alerte ' + type;
-      el.style.display = 'block';
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function cacherAlerte() {
-      const el = document.getElementById('alerte');
-      el.style.display = 'none';
-    }
-
-    /* ══════════════════════════════════════════════════
-       CHARGEMENT BOUTON
-    ══════════════════════════════════════════════════ */
-    function setChargement(btnId, spinnerId, texteId, actif) {
-      document.getElementById(btnId).disabled           = actif;
-      document.getElementById(spinnerId).style.display  = actif ? 'block' : 'none';
-      document.getElementById(texteId).style.visibility = actif ? 'hidden' : 'visible';
-    }
-
-    /* ══════════════════════════════════════════════════
-       INSCRIPTION RÉELLE — SUPABASE AUTH
-    ══════════════════════════════════════════════════ */
-    async function soumettreInscription() {
-      const prenom = document.getElementById('prenom');
-      const nom    = document.getElementById('nom');
-      const tel    = document.getElementById('telephone');
-      const email  = document.getElementById('email');
-      const mdp    = document.getElementById('mdp');
-
-      // Validation locale
-      const ok = [
-        validerChamp(prenom),
-        validerChamp(nom),
-        validerTel(tel),
-        validerEmail(email),
-        validerMdp(mdp)
-      ].every(Boolean);
-
-      if (!ok) {
-        afficherAlerte('⚠️ Vérifie les champs en rouge avant de continuer.', 'erreur-globale');
-        return;
-      }
-
-      setChargement('btn-inscription', 'spinner-inscription', 'texte-btn-inscription', true);
-      cacherAlerte();
-
-      try {
-        /* ── Construire l'email de connexion ───────────────────────────
-           Si l'utilisateur n'a pas d'email, on crée un email fictif
-           unique basé sur son numéro → il pourra se connecter avec ça
-        ──────────────────────────────────────────────────────────────── */
-        const numeroNettoye = tel.value.replace(/\s/g, '');
-        const emailConnexion = email.value.trim() !== ''
-          ? email.value.trim()
-          : `${numeroNettoye}@weurfarme.sn`;
-
-        /* ── Appel Supabase Auth ──────────────────────────────────────── */
-        const { data, error } = await db.auth.signUp({
-          email:    emailConnexion,
-          password: mdp.value,
-          options: {
-            data: {
-              prenom:    prenom.value.trim(),
-              nom:       nom.value.trim(),
-              telephone: '+221' + numeroNettoye,
-              abonne:    false   // sera mis à true après paiement
-            }
-          }
-        });
-
-        if (error) {
-          // Traduction des erreurs Supabase en français
-          const msg = traduireErreur(error.message);
-          afficherAlerte('❌ ' + msg, 'erreur-globale');
-          return;
-        }
-
-        /* ── Succès : l'utilisateur est créé ─────────────────────────── */
-        afficherAlerte(
-          '✅ <strong>Compte créé avec succès !</strong><br/>' +
-          'Tu vas être redirigé vers le paiement dans 2 secondes…',
-          'succes'
-        );
-
-        // Redirige vers la page paiement après 2s
         setTimeout(() => {
-          window.location.href = 'paiement.html';
-        }, 2000);
+          window.location.href = meta.abonne === true ? 'dashboard.html' : 'paiement.html';
+        }, 1200);
 
       } catch (err) {
-        console.error('Erreur inscription:', err);
-        afficherAlerte('❌ Une erreur inattendue est survenue. Réessaie.', 'erreur-globale');
-      } finally {
-        setChargement('btn-inscription', 'spinner-inscription', 'texte-btn-inscription', false);
-      }
-    }
-
-    /* ══════════════════════════════════════════════════
-       CONNEXION RÉELLE — SUPABASE AUTH
-    ══════════════════════════════════════════════════ */
-    async function soumettreConnexion() {
-      const loginEmail = document.getElementById('login-email');
-      const loginMdp   = document.getElementById('login-mdp');
-
-      const ok = [validerChamp(loginEmail), validerChamp(loginMdp)].every(Boolean);
-      if (!ok) {
-        afficherAlerte('⚠️ Remplis tous les champs.', 'erreur-globale');
-        return;
-      }
-
-      setChargement('btn-connexion', 'spinner-connexion', 'texte-btn-connexion', true);
-      cacherAlerte();
-
-      try {
-        /* ── Détecter si c'est un numéro de téléphone ─────────────────
-           Si l'utilisateur saisit son numéro, on reconstruit l'email fictif
-        ──────────────────────────────────────────────────────────────── */
-        let emailConnexion = loginEmail.value.trim();
-        if (/^[0-9\s+]+$/.test(emailConnexion)) {
-          const num = emailConnexion.replace(/[\s+]/g, '').replace(/^221/, '');
-          emailConnexion = `${num}@weurfarme.sn`;
-        }
-
-        const { data, error } = await db.auth.signInWithPassword({
-          email:    emailConnexion,
-          password: loginMdp.value,
-        });
-
-        if (error) {
-          afficherAlerte('❌ ' + traduireErreur(error.message), 'erreur-globale');
-          return;
-        }
-
-        /* ── Succès : vérifier si l'utilisateur est abonné ───────────── */
-        afficherAlerte('✅ Connexion réussie ! Redirection…', 'succes');
-
-        const meta = data.user?.user_metadata || {};
-        if (meta.abonne === true) {
-          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
-        } else {
-          // Compte créé mais pas encore payé → vers paiement
-          setTimeout(() => { window.location.href = 'paiement.html'; }, 1200);
-        }
-
-      } catch (err) {
-        console.error('Erreur connexion:', err);
         afficherAlerte('❌ Une erreur inattendue est survenue.', 'erreur-globale');
       } finally {
         setChargement('btn-connexion', 'spinner-connexion', 'texte-btn-connexion', false);
       }
     }
 
-    /* ══════════════════════════════════════════════════
-       TRADUCTION ERREURS SUPABASE → FRANÇAIS
-    ══════════════════════════════════════════════════ */
+    /* TRADUCTION ERREURS */
     function traduireErreur(msg) {
       const erreurs = {
-        'User already registered':              'Un compte existe déjà avec cet email ou ce numéro.',
-        'Invalid login credentials':            'Email/numéro ou mot de passe incorrect.',
-        'Email not confirmed':                  'Confirme ton email avant de te connecter.',
+        'User already registered': 'Un compte existe déjà avec cet email ou ce numéro.',
+        'Invalid login credentials': 'Email/numéro ou mot de passe incorrect.',
+        'Email not confirmed': 'Confirme ton email avant de te connecter.',
         'Password should be at least 6 characters': 'Le mot de passe doit avoir au moins 8 caractères.',
-        'Unable to validate email address':     'Adresse email invalide.',
-        'signup_disabled':                      'Les inscriptions sont temporairement désactivées.',
-        'too_many_requests':                    'Trop de tentatives. Attends quelques minutes.',
+        'too_many_requests': 'Trop de tentatives. Attends quelques minutes.',
       };
       for (const [cle, valeur] of Object.entries(erreurs)) {
         if (msg.toLowerCase().includes(cle.toLowerCase())) return valeur;
       }
-      return msg; // fallback : message brut
+      return msg;
     }
 
-    /* ══════════════════════════════════════════════════
-       FORMATAGE TÉLÉPHONE EN TEMPS RÉEL
-    ══════════════════════════════════════════════════ */
-    document.getElementById('telephone').addEventListener('input', function () {
+    /* FORMAT TEL */
+    document.getElementById('telephone').addEventListener('input', function() {
       this.value = this.value.replace(/[^0-9\s]/g, '');
     });
   </script>
-
-</body>
-</html>
-
 
 </body>
 </html>
