@@ -20,7 +20,6 @@ const contenu = `/**
  */
 const SUPABASE_URL      = '${url}';
 const SUPABASE_ANON_KEY = '${key}';
-const AI_ASSISTANT_FUNCTION = 'ask-assistant';
 `;
 
 fs.writeFileSync(path.join(__dirname, 'config.js'), contenu, 'utf8');
