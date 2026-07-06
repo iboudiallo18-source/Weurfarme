@@ -1,6 +1,6 @@
 /**
  * WeurFarme – Assistant agricole IA
- * Appelle la Edge Function Supabase « ask-assistant »
+ * Appelle la fonction Netlify « ask-gemini »
  */
 
 const AssistantWeurFarme = (() => {
@@ -170,25 +170,18 @@ const AssistantWeurFarme = (() => {
     }
 
     try {
-      if (typeof db === 'undefined') {
-        throw new Error('Supabase non chargé');
-      }
-      const nomFn = typeof AI_ASSISTANT_FUNCTION !== 'undefined'
-        ? AI_ASSISTANT_FUNCTION
-        : 'ask-assistant';
-
-      const { data, error } = await db.functions.invoke(nomFn, {
-        body: {
-          message,
-          history: historique.slice(-10),
-          prenom: prenomUtilisateur,
-        },
+      const res = await fetch('/.netlify/functions/ask-gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: historique.slice(-10) }),
       });
+
+      const data = await res.json().catch(() => ({}));
 
       retirerChargement();
 
-      if (error || data?.error) {
-        throw new Error(error?.message || data?.error || 'Service IA indisponible');
+      if (!res.ok || data?.error) {
+        throw new Error(data?.error || 'Service IA indisponible');
       }
 
       const reponse = data?.reply?.trim();
@@ -211,8 +204,7 @@ const AssistantWeurFarme = (() => {
 
       definirStatut(false);
       afficherErreur(
-        'Service IA cloud non activé. Réponses locales utilisées. ' +
-        'Pour l\'IA complète, déployez supabase/functions/ask-assistant.'
+        'Assistant IA momentanément indisponible. Réponses locales utilisées en attendant.'
       );
       ajouterMessage(
         'assistant',

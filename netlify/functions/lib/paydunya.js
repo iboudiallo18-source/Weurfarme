@@ -62,11 +62,31 @@ function jsonResponse(statusCode, body, extraHeaders = {}) {
   };
 }
 
-function corsHeaders() {
+/**
+ * Détermine l'origine autorisée à partir de l'en-tête Origin de la requête.
+ * On accepte le domaine du site ainsi que les déploiements *.netlify.app
+ * (previews). Toute autre origine reçoit l'URL du site par défaut, ce qui
+ * empêche un site tiers d'appeler ces fonctions depuis un navigateur.
+ */
+function resolveAllowedOrigin(requestOrigin) {
+  if (!requestOrigin) return SITE_URL;
+  try {
+    const { hostname, origin } = new URL(requestOrigin);
+    if (origin === SITE_URL) return origin;
+    if (hostname.endsWith('.netlify.app')) return origin;
+  } catch {
+    /* origine malformée : on retombe sur SITE_URL */
+  }
+  return SITE_URL;
+}
+
+function corsHeaders(requestOrigin) {
   return {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': resolveAllowedOrigin(requestOrigin),
+    'Vary': 'Origin',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
   };
 }
 
