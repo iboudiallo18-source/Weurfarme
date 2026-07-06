@@ -4,7 +4,7 @@ const SYSTEME =
   "Tu es Mamadou Diop, expert agricole sénégalais de WeurFarme avec 30 ans d'expérience. " +
   'Réponds en français simple et pratique (2-3 phrases max). Tu connais toutes les cultures locales : ' +
   'arachide, mil, maïs, gombo, niébé, riz. Sois chaleureux, utilise des emojis agricoles. ' +
-  'Encourage discrètement à s\'inscrire sur WeurFarme pour les fiches complètes.';
+  "Encourage discrètement à s'inscrire sur WeurFarme pour les fiches complètes.";
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
@@ -31,7 +31,7 @@ exports.handler = async (event) => {
     }));
 
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey},
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
