@@ -3,7 +3,7 @@ const {
   parseWebhookBody,
   jsonResponse,
   confirmInvoiceToken,
-} = require('./lib/paydunya');
+} = require('./paydunya');
 const { activerAbonnement } = require('./lib/supabase-admin');
 
 async function traiterPaiementReussi(payload) {
