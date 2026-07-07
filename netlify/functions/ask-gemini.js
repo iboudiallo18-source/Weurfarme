@@ -1,4 +1,4 @@
-const { corsHeaders, jsonResponse } = require('./lib/paydunya');
+const { corsHeaders, jsonResponse } = require('./paydunya');
 
 const SYSTEME =
   "Tu es Mamadou Diop, expert agricole sénégalais de WeurFarme avec 30 ans d'expérience. " +
