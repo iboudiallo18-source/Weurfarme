@@ -85,7 +85,7 @@ const AssistantWeurFarme = (() => {
     }
 
     conteneur.appendChild(div);
-    conteneur.scrollTop = conteneur.scrollHeight;
+    div.scrollIntoView({ behavior: 'smooth', block: 'end' });
     return div;
   }
 
@@ -96,7 +96,7 @@ const AssistantWeurFarme = (() => {
     div.innerHTML =
       'Analyse en cours<div class="dots"><span></span><span></span><span></span></div>';
     $('assistant-messages').appendChild(div);
-    $('assistant-messages').scrollTop = $('assistant-messages').scrollHeight;
+    div.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
   function retirerChargement() {
