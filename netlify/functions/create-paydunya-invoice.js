@@ -3,7 +3,7 @@ const {
   jsonResponse,
   getAmountForCurrency,
   createCheckoutInvoice,
-} = require('./lib/paydunya');
+} = require('./paydunya');
 const { getUserFromJwt } = require('./lib/supabase-admin');
 
 exports.handler = async (event) => {
