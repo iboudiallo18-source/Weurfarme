@@ -18,8 +18,8 @@ if (!url || !key) {
 const contenu = `/**
  * Généré automatiquement au déploiement Netlify — ne pas éditer sur le serveur.
  */
-const SUPABASE_URL      = '${url}';
-const SUPABASE_ANON_KEY = '${key}';
+const SUPABASE_URL      = ${JSON.stringify(url)};
+const SUPABASE_ANON_KEY = ${JSON.stringify(key)};
 const AI_ASSISTANT_FUNCTION = 'ask-assistant';
 `;
 
