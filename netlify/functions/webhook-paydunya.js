@@ -4,7 +4,7 @@ const {
   jsonResponse,
   confirmInvoiceToken,
 } = require('./paydunya');
-const { activerAbonnement } = require('./lib/supabase-admin');
+const { activerAbonnement } = require('./supabase-admin');
 
 async function traiterPaiementReussi(payload) {
   if (!verifyPaydunyaHash(payload.hash)) {
@@ -22,7 +22,7 @@ async function traiterPaiementReussi(payload) {
   }
 
   await activerAbonnement(userId, {
-    paydunya_token: payload.invoice?.token || payload.token || '',
+    paydunya_token: payload.invoice?.token  payload.token  '',
   });
 
   return { success: true, userId };
