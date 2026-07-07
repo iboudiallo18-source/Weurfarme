@@ -1,6 +1,6 @@
 const { corsHeaders, jsonResponse } = require('./paydunya');
 const { confirmAndActivate } = require('./webhook-paydunya');
-const { getUserFromJwt } = require('./lib/supabase-admin');
+const { getUserFromJwt } = require('./supabase-admin');
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
