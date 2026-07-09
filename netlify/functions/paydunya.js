@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const SITE_URL = (process.env.URL  process.env.SITE_URL  'https://weurfarmeagrisn.netlify.app').replace(/\/$/, '');
+const SITE_URL = (process.env.URL || process.env.SITE_URL || 'https://weurfarmeagrisn.netlify.app').replace(/\/$/, '');
 
 function getPaydunyaBaseUrl() {
   const mode = (process.env.PAYDUNYA_MODE || 'test').toLowerCase();
@@ -14,7 +14,7 @@ function getPaydunyaHeaders() {
   const privateKey = process.env.PAYDUNYA_PRIVATE_KEY;
   const token = process.env.PAYDUNYA_TOKEN;
 
-  if (!masterKey  !privateKey  !token) {
+  if (!masterKey || !privateKey || !token) {
     throw new Error('Clés PayDunya manquantes dans les variables Netlify.');
   }
 
@@ -105,13 +105,13 @@ async function createCheckoutInvoice({ amount, devise, description, channels, cu
       website_url: SITE_URL,
     },
     actions: {
-      callback_url: ${SITE_URL}/.netlify/functions/webhook-paydunya,
-      return_url: ${SITE_URL}/dashboard.html,
-      cancel_url: ${SITE_URL}/paiement.html,
+      callback_url: `${SITE_URL}/.netlify/functions/webhook-paydunya`,
+      return_url: `${SITE_URL}/dashboard.html`,
+      cancel_url: `${SITE_URL}/paiement.html`,
     },
   };
 
-  const res = await fetch(${getPaydunyaBaseUrl()}/checkout-invoice/create, {
+  const res = await fetch(`${getPaydunyaBaseUrl()}/checkout-invoice/create`, {
     method: 'POST',
     headers: getPaydunyaHeaders(),
     body: JSON.stringify(payload),
@@ -129,7 +129,7 @@ async function createCheckoutInvoice({ amount, devise, description, channels, cu
 }
 
 async function confirmInvoiceToken(invoiceToken) {
-  const res = await fetch(${getPaydunyaBaseUrl()}/checkout-invoice/confirm/${invoiceToken}, {
+  const res = await fetch(`${getPaydunyaBaseUrl()}/checkout-invoice/confirm/${invoiceToken}`, {
     method: 'GET',
     headers: getPaydunyaHeaders(),
   });

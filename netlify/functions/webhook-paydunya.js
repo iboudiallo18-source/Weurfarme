@@ -22,7 +22,7 @@ async function traiterPaiementReussi(payload) {
   }
 
   await activerAbonnement(userId, {
-    paydunya_token: payload.invoice?.token  payload.token  '',
+    paydunya_token: payload.invoice?.token || payload.token || '',
   });
 
   return { success: true, userId };

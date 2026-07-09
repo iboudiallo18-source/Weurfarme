@@ -16,7 +16,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const auth = event.headers.authorization  event.headers.Authorization  '';
+    const auth = event.headers.authorization || event.headers.Authorization || '';
     const jwt = auth.replace(/^Bearer\s+/i, '').trim();
 
     if (!jwt) {
